@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>文件上传框</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="../../static/app/css/app.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src="static/seajs/sea.js"></script>
+	<script src="static/seajs/config.js"></script>
+	<script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+<style type="text/css">
+body{ font-size:14px;}
+input{ vertical-align:middle; margin:0; padding:0}
+.file-box{ position:relative;width:340px}
+.txt{ height:22px; border:1px solid #cdcdcd; width:180px;}
+.btn{ background-color:#FFF; border:1px solid #CDCDCD;height:24px; width:70px;}
+.file{ position:absolute; top:0; right:80px; height:24px; filter:alpha(opacity:0);opacity: 0;width:260px }
+</style>
+</head>
+<body>
+<div class="file-box">
+  <form action="" method="post" enctype="multipart/form-data">
+ <input type='text' name='textfield' id='textfield' class='txt' />  
+    <input type="file" name="fileField" class="file" size="28" onchange="document.getElementById('textfield').value=this.value" />
+ <input type="submit" name="submit" class="btn" value="上传" />
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>前端模板</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="../../static/app/css/app.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src="static/seajs/sea.js"></script>
+	<script src="static/seajs/config.js"></script>
+	<script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    
+</head>
+<body>
+ 
+	<!-- 主体部分 -->
+	<div class="content f14">
+		<div class="container">
+			<h1>输入框验证</h1>
+			<div class="mb20">
+				<div class="mb20">
+				<input class="g9" id="input" type="text" value="这里是内容">
+                <button id="btn">确定</button>
+				</div>
+				<div class="question">
+					<h3>要求</h3>
+					<div>
+						点击输入框，默认文字消失，点击其他地方，默认文字又出现，
+						<br />
+						输入框为空时，默认文字又出现
+						<br />
+						点击确定按钮，如果输入框为空，则弹出提示“不能为空”
+					</div>
+				</div>	
+			</div>
+			<div>
+				演示地址：<a class="blue" href="http://qzhouz.github.io/test/input.html" target="_blank">http://qzhouz.github.io/test/input.html</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- /主体部分 -->
+	<script>
+        // 获取输入框的默认值
+        var defaultValue = $("#input").val();//当前文本框开始的默认值
+        $("#input").on("focus blur", function(e) {
+            var val = $(this).val();
+            if (e.type == "focus") {
+                if (val == defaultValue) {
+                    $(this).val("");
+                }                                       //进入焦点时触发
+            }
+            if (e.type == "blur") {
+                if ($(this).val() == "") {
+                    $(this).val(defaultValue);
+                }
+            }                                            //失去焦点是触发
+        }); 
+        $("#btn").on("click", function() {
+            var val = $("#input").val();
+            if (val == "" || val == defaultValue) {
+                alert("不能为空");
+            }
+        });      
+    </script>
+
+</body>
+</html>

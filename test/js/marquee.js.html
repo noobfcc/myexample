@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../static/mod/jQuery.Marquee-master/jquery.marquee.min.js"></script>
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <style>
+	.marquee {
+		  width: 300px;
+		  overflow: hidden;
+		  border: 1px solid #ccc;
+		  background: red;
+		}
+    </style>
+</head>
+<body>
+	<div class="marquee ver" data-direction='up' data-duration='1000' data-pauseOnHover="true">
+		<li>他</li>
+		<li>hello</li>
+		<li>goodjob</li>
+		<b>end</b>
+	</div>
+	<div class="renav"> 
+		<ul style="margin-top: 0px;"> 
+		<li><a>罗氏</a></li> 
+		<li><a>瑞声达</a></li> 
+		<li><a>未添加1</a></li> 
+		<li><a>未添加2</a></li> 
+		<li><a>未添加3</a></li> 
+		<li><a>未添加4</a></li> 
+		<li><a>西门子</a></li> 
+		<li><a>欧姆龙</a></li> 
+		</ul> 
+	</div>
+</body>
+<script>
+  $('.marquee').marquee({
+  	duration: 150000,
+  });
+
+</script>
+ 
+
+
+
+
+
+
+
+
+
+

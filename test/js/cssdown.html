@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>倒计时</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <script src="static/seajs/sea.js"></script>
+    <script src="static/seajs/config.js"></script>
+    <script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="../../static/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div id="time">2015-03-24 11:08</div>
+<div>距离考试还有<span id="think"></span>分钟</div>
+</body>
+</html>
+<script>
+function showalert() 
+{ 
+var nowtime = new Date().valueOf();
+var timestr = $("#time").text();
+var timestr = timestr.replace(/-/g,'/');
+var time = new Date(timestr);
+var needtime = time.getTime();
+var difference = (needtime-nowtime)/1000;
+var min1=Math.round(difference/60);
+var sec=Math.round(difference%60);
+var dateTime = min1+":"+sec;
+var divNode = document.getElementById("think"); 
+divNode.innerHTML = dateTime; 
+console.log(nowtime);
+console.log(timestr);
+console.log(difference);
+console.log(sec);
+}
+window.setInterval(showalert, 1000);
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+   
+</body>
+
+    <script>
+        require.config({
+            paths: {
+                echarts: '../../static/echarts-2.2.1/build/dist'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' 
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('main')); 
+                var option = {
+        			backgroundColor: "#f7f7f7",
+				    tooltip : {
+				        trigger: 'axis'
+				    },
+				    legend: {
+				        data:['Offline','OnLine','未使用']
+				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            dataView : {show: true, readOnly: false},
+							restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
+				    calculable : true,
+				    xAxis : [
+				        {
+				            type : 'category',
+				            boundaryGap : false,
+				            data : ['2015-04-04','2015-04-05','2015-04-06','2015-04-07','2015-04-08','2015-04-09','2015-04-10']
+				        }
+				    ],
+				    yAxis : [
+				        {
+				             name : '数量',
+				             type : 'value'
+				        }
+				    ],
+				    series : [
+				        {
+				            name:'Offline',
+				            type:'line',
+				            data:[39, 38, 39, 39, 39, 40, 41],
+				        },
+				        {
+				            name:'OnLine',
+				            type:'line',
+				            data:[2, 2, 2, 2, 2, 2, 2],
+
+				        },
+				          {
+				            name:'未使用',
+				            type:'line',
+				            data:[1, 2, 2, 5, 3, 2, 0],
+				            
+				        }
+						    ]
+						};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+ 

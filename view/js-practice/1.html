@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">    
+    </head>
+    <body>
+        <div>
+			JavaScript 能够直接写入 HTML 输出流中：
+		</div>
+		<div>
+			<button type="botton" onclick="alert('welcome!')">对事件作出反应</button>
+		</div>
+		<div id="demo">
+			<button type="botton" onclick="myFunction()">改变HTML内容</button>
+		</div>
+		<div>
+			<button onclick="mefunction('bill','ceo')">带参函数</button>
+		</div>
+    </body>
+</html>
+	<script>
+	    
+	    //JavaScript 能够直接写入 HTML 输出流中：
+		document.write("<div style='font-size:24px;color:red;'>hello js</div>")//仅仅向文档输出写内容
+       
+        //改变HTML内容
+		function myFunction(){
+			document.getElementById("demo").innerHTML="Hello JavaScript";//可选DOM
+		}
+		
+		//运算
+		var x=2;
+		var y=3;
+		var z=x+y;
+		document.write(z+"<br>");
+		
+		//带参函数
+		function mefunction(name,job){
+			alert("Welcome "+name+" the"+job);
+		}
+		
+		//带有返回值的参数
+		function mefunction1(name,job){
+			var name=5;
+			var job=4;
+			return name+job;
+		}
+
+		//for循环
+		cars=["red","blue","red","black"]
+        for(var i=0; i<cars.length;i++){
+        	document.write(cars[i] + "<br>");
+        }
+		
+		//while循环
+		var i=0;
+		while (cars[i]){
+			document.write(cars[i]+"<br>");
+			i++;
+		}
+		
+		//JavaScript HTML DOM
+		
+	</script>

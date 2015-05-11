@@ -1,0 +1,10 @@
+{
+	"status": 1,
+	"info": "请求成功",
+	"data": {
+		"name": "Tom",
+		"age": 22,
+        "sex":"boy"
+	}
+}
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>json加载读取</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="../../static/app/css/app.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">       
+        function AutoScroll(obj) {
+            $(obj).find("ul:first").animate({
+                marginTop: "-25px"
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+            });
+        }
+        $(document).ready(function () {
+            var myar = setInterval('AutoScroll("#con2_qhd_3")', 1000);
+            //当鼠标放上去的时候，滚动停止，鼠标离开的时候滚动开始
+            $("#con2_qhd_3").hover(function () { clearInterval(myar); }, function () { myar = setInterval('AutoScroll("#con2_qhd_3")', 1000) });
+        });
+</script>
+ </head>
+
+
+<div id="con2_qhd_3">
+        <ul>
+             <li><a href="#">欢迎111111111111</a></li>
+            <li><a href="#">欢迎22222222222</a></li>
+            <li><a href="#">欢迎333333333333</a></li>
+            <li><a href="#">欢迎4444444444444</a></li>
+            <li><a href="#">欢迎5555555555</a></li>
+           <li><a href="#">欢迎6</a></li>
+        </ul>
+    </div>
+</html>

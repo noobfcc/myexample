@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script  src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+    <style>
+    .btn{
+        height:30px;
+        width:50px;
+        background-color: blue;
+    }
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="load_chart" style="height:400px"></div>
+    <button id="create_data" class="btn">统计</button>
+    <input id="time_et" type="text">
+    <input id="time_st" type="text">
+    <input id="choose_dimension" type="text">
+    <!-- ECharts单文件引入 -->
+   
+</body>
+<script>
+    getChart();
+    $("#create_data").on("click", function() {
+        getChart();
+    });
+    function getChart(){
+        require.config({
+            paths: {
+                echarts: '../../static/echarts-2.2.1/build/dist'
+            }
+        });
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/line'
+                ],
+            function(ec) {
+                var chartObj = ec.init(document.getElementById('load_chart'), "macarons");
+                var dimensionId = $("#choose_dimension").val();
+                var st = $("#time_st").val();
+                var et = $("#time_et").val();
+                $.get("../js/db/chart.json?dimensionId="+dimensionId+"&st="+st+"&et="+et,
+                    function(data){
+                            var timeList = data.timeList; // x轴时间
+                            var stateList = data.state;
+                            var dimension = []; 
+                            var stateName = []; 
+                            for (var i = 0; i < stateList.length; i++) {
+                            stateName.push(stateList[i].name);
+                            dimension.push({
+                                            name: stateList[i].name,
+                                            type:'line',
+                                            symbol: 'Circle',
+                                            symbolSize: '3',
+                                            data: function() {
+                                                var dataList = [];
+                                                for (var m = 0; m < stateList[i].state.length; m++) {
+                                                    dataList.push(stateList[i].state[m].value);
+                                                }
+                                                return dataList;
+                                            }()
+                            });
+                        }
+                        renderChart(stateName, timeList , dimension);
+                        chartObj.setOption(option);
+                    }, "json");
+            }
+        );
+        function renderChart(legendName,timeList, dimension) {
+            option = {
+                backgroundColor: "#f7f7f7",
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:legendName
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : timeList
+                    }
+                ],
+                yAxis : [
+                    {
+                        name : '数量',
+                        type : 'value'
+                    }
+                ],
+                series : dimension
+            };
+
+        }
+    }
+</script>
+ 

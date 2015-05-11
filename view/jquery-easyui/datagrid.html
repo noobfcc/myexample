@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>datagrid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/icon.css">
+</head>
+<body>
+        <table id="gird" title="基础节点列表" fit="true" class="easyui-datagrid" data-options="{
+            url:'../../test/js/db/datagrid_data.json',
+            method:'post',
+            fitColumns:false,
+            columns: [[
+                {field:'id',checkbox:true},
+                {field:'code',title:'节点名称'},
+                {field:'name',title:'节点别名'},
+                {field:'name',title:'节点类型'}
+            ]]}
+            ">
+        </table>
+</body>
+</html>
+<script>
+  
+</script>

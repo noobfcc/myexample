@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>返回顶部的代码#top</title>
+ <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+   <style type="text/css">
+    div.box{
+      height:50px;
+      width:50px;
+      background-color:blue;
+      position:fixed;
+    
+    }
+    </style>
+</head>
+<body>
+    <div style="height:1000px;width:500px;">
+      <div class="box"></div>  
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+//返回TOP的
+$.fn.me = function(options){ 
+    var sp = options.sp;
+    var t = options.t;
+    var r = options.r;
+    var b = options.b;
+    $(this).on("click",function(){
+        $('html,body').animate({scrollTop:sp},t); 
+    });
+    $(this).css({
+        right:r,
+        bottom:b
+    });
+};
+$(".box").me({
+    sp:0,
+    t:1000,
+    r:"100px",
+    b:"100px"
+});
+//鼠标点击改变颜色
+
+</script>

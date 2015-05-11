@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>datagrid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+</head>
+<style>
+	.clearfix:after{
+    	display:block; 
+    	content:"clear";
+		height:0; 
+		clear:both; 
+		overflow:hidden;
+		visibility:hidden;      
+    }
+	ul{
+		margin: 0;
+    	padding: 0;
+    }
+	li{
+		float: left;
+		list-style: none;
+		width:56px;
+		height:24px;
+		background-color:#999;
+		margin-right: 2px;
+		text-align: center;
+		line-height: 24px;
+	}
+	.tabcon{
+		height:400px;
+		width:500px;
+		border: 1px solid #666
+	}
+	.tab{
+		margin-left:auto;
+		margin-right:auto; 
+		width:800px;
+	}
+	.on{
+		background-color:red;
+	}
+</style>
+<body>
+	<div class="tab">
+		<ul id="tabnav" class="clearfix">
+			<li>TAB1</li>
+			<li>TAB2</li>
+			<li>TAB3</li>
+			<li>TAB4</li>
+		</ul>
+		<div id="con" class="tabcon">
+		    <div class="content" style="display:none">
+		    	这里是一的内容
+		    </div>
+		    <div class="content" style="display:none">
+		    	这里是二的内容
+		    </div>
+		    <div class="content" style="display:none">
+		    	这里是三的内容
+		    </div>
+		     <div class="content" style="display:none">
+		    	这里是四的内容
+		    </div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+	(function($){
+		$ .tab=function(options){
+			var settings={
+				tabdom:".tab",
+				tiggerType:"click",
+				effect:"none",
+				autoplay:true,
+				interval:2000
+			}
+			var opts = $.extend({},settings,options);
+			var $tabdom=$(opts.tabdom);
+			var effe=opts.effect;
+			var auto=opts.autoplay;
+			var time=opts.interval;
+			var type=opts.tiggerType;
+			$tabdom.find("ul").children().eq(0).addClass("on");
+		    $tabdom.find("ul").siblings().children().eq(0).show();
+		    if (type == "click") {
+		    	$tabdom.find("ul").children().bind(type,function(){
+					var index = $(this).index();
+					$(this).addClass("on").siblings().removeClass('on');
+					if(effe == "fade"){
+							$(".tab ul").siblings().children().eq(index).fadeIn().siblings().hide();
+					}else if(effe == "none"){
+							$(".tab ul").siblings().children().eq(index).show().siblings().hide();
+					}
+				})
+		    }
+		    else if(type == "mouseover") {
+		    	$tabdom.find("ul").children().bind(type,function(){
+					var index = $(this).index();
+					$(this).addClass("on").siblings().removeClass('on');
+						if(effe == "fade"){
+							$(".tab ul").siblings().children().eq(index).fadeIn().siblings().hide();
+						}else if(effe == "none"){
+							$(".tab ul").siblings().children().eq(index).show().siblings().hide();
+						}
+				})
+		    }
+			if(auto ==true){
+				var number = 0;
+				var maxNumber =$tabdom.find("ul").children().length;
+				function autotab(){
+					number++;
+					number == maxNumber? number = 0 : number;
+					$tabdom.find("ul").children().eq(number).addClass('on').siblings().removeClass('on');
+					$tabdom.find("ul").siblings().children().eq(number).fadeIn().siblings().hide();
+				}
+				var tabChange = setInterval(autotab,time);
+				$tabdom.find("ul").children().mouseover(function(){
+					clearInterval(tabChange);
+					number = -1;
+				});
+				$tabdom.find("ul").children().mouseout(function(){
+					tabChange = setInterval(autotab,time);
+				});
+			}  
+		};
+	})( jQuery);  
+	$.tab({
+				tabdom:".tab",
+				tiggerType:"mouseover",
+				effect:"fade",
+				autoplay:true,
+				interval:2000
+			}); 
+</script>

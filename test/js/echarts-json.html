@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script type="text/javascript" src="../../static/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script  src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+    <style>
+    .btn{
+        height:30px;
+        width:50px;
+        background-color: blue;
+    }
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="load_chart" style="height:400px"></div>
+    <button id="create_data" class="btn">统计</button>
+    <input id="time_et" type="text">
+    <input id="time_st" type="text">
+    <input id="choose_dimension" type="text">
+    <!-- ECharts单文件引入 -->
+   
+</body>
+<script>
+    getChart();
+    $("#create_data").on("click", function() {
+        getChart();
+    });
+    function getChart(){
+        require.config({
+            paths: {
+                echarts: '../../static/echarts-2.2.1/build/dist'
+            }
+        });
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/line'
+                ],
+            function(ec) {
+                var chartObj = ec.init(document.getElementById('load_chart'), "macarons");
+                var dimensionId = $("#choose_dimension").val();
+                var st = $("#time_st").val();
+                var et = $("#time_et").val();
+                $.get("../js/db/chart.json?dimensionId="+dimensionId+"&st="+st+"&et="+et,
+                        function(data){
+                            if (data.status == 1) {
+                                var data = data.data;
+                                var timeList = data.timeList; // x轴时间
+                                var dimension = [
+                                    {
+                                        name: "Offline",
+                                        type:'line',
+                                        symbol: 'Circle',
+                                        symbolSize: '3',
+                                        data: function() {
+                                            var dataListof = [];
+                                            for (var m = 0; m < data.offline.length; m++) {
+                                                dataListof.push(data.offline[m].value);
+                                            }
+                                            return dataListof;
+                                        }()
+                                    },
+                                    {
+                                        name: "OnLine",
+                                        type:'line',
+                                        symbol: 'rectangle',
+                                        symbolSize: '3',
+                                        data: function() {
+                                            var dataListon = [];
+                                            for (var i = 0; i < data.online.length; i++) {
+                                                dataListon.push(data.online[i].value);
+                                            }
+                                            return dataListon;
+                                        }()
+                                    },
+                                    {
+                                        name: "未使用",
+                                        type:'line',
+                                        symbol: 'triangle',
+                                        symbolSize: '3',
+                                        data: function() {
+                                            var dataListun = [];
+                                            for (var j = 0; j < data.unused.length; j++) {
+                                                dataListun.push(data.unused[j].value);
+                                            }
+                                            return dataListun;
+                                        }()
+                                    }
+                                ];
+                            }
+                            renderChart(timeList , dimension);
+                            chartObj.setOption(option);
+                        }, "json");
+            }
+        );
+        function renderChart(timeList, dimension) {
+            option = {
+                backgroundColor: "#f7f7f7",
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['Offline','OnLine','未使用']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : timeList
+                    }
+                ],
+                yAxis : [
+                    {
+                        name : '数量',
+                        type : 'value'
+                    }
+                ],
+                series : dimension
+            };
+
+        }
+    }
+</script>
+ 

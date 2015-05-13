@@ -1,0 +1,39 @@
+<!doctype html>
+<!--[if lte IE 8 ]> <html class="no-js lte-ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="zh-CN"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>杭州致良知科技有限公司</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- <LINK href="/Public/images/favicon.ico" type="image/x-icon" rel="shortcut icon"> -->
+	<link rel="stylesheet" href="css/app.css?v=1.0">
+	<link rel="stylesheet" href="test.css">
+	<script src="js/avalon.js"></script>
+	<script type="text/javascript" src="js/sea.js?v=2.1.1" id="seajsnode"></script>
+	<script src="js/appConfig.js"></script>
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+	<![endif]-->
+<body class="zlz-style" >
+<button onclick="window.print()">print</button>
+<div class="noprint" style="width: 100px;height: 100px;background: red;">111111</div>
+<ul ms-controller="test"  ms-each-el="array">
+			<li>foo</li>
+            <li>{{fix(el.score)}}</li>
+        </ul>
+	<script>
+		 var model = avalon.define("test", function(vm) {
+                vm.array = {};
+                vm.fix = function(a){
+                    return a === 0 ? "/" : a
+                }
+            })
+		var dataAjax = [{score: 221212},{score: 0},{score: 77111}];
+		model.array = dataAjax;
+	 </script>
+</body>
+</html>

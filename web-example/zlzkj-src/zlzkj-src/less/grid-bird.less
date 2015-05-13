@@ -1,0 +1,199 @@
+/*! 栅格化系统和站点全局样式 | wq@zlzkj.com | 2013-11-03 */
+
+/**
+ * -------------------------------------------------------------------------------------
+ * 简易双飞翼栅格化系统
+ * -------------------------------------------------------------------------------------
+ * 概要说明：
+ *      (总宽度)W=1150,(列宽)C=40,(列数)N=29，栅格系统公式W=C*N;
+ *      (槽宽)G=10;
+ * 简写说明：
+ *      g-s5m0e5,
+ *        s5代表左侧栏的N(s)=5，W(s)=5*C-G=190;
+ *        e5代表右侧栏的N(e)=5，W(e)=5*C-G=190;
+ *          m0代表主栏,W(m)=W-N(s)*C-N(e)*C=750;
+ *        g-s5m0(或g-m0s5),
+ *        s5代表左(或右)侧栏的N(s)=5，W(s)=5*C-G=190;
+ *          m0代表主栏,W(m)=W-N(s)*C=950;
+ * 布局说明：
+ *      支持范围，
+ *        N的取值范围是5,6,7,8->即侧栏的宽度范围是190,230,270,310(其他布局请自行扩展);
+ */
+
+.g-m{width:100%;}
+.col-main {float:left;width:100%;}
+
+/**
+ * 布局方式：三栏
+ * 布局范例：g-s5m0e5
+ *  <div class="g-s5m0e5 layout">
+        <div class="col-main">
+          <div class="main-wrap">
+            <div style="border:1px solid #08c;height:8px"></div>
+          </div>
+        </div>
+        <div class="col-sub">
+          <div style="border:1px solid #08c;height:8px"></div>
+        </div>
+        <div class="col-extra">
+          <div style="border:1px solid #08c;height:8px"></div>
+        </div>
+    </div>
+ * 
+ */
+.g-s5m0e5{
+	@S:5;@E:5;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s5m0e6{
+	@S:5;@E:6;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s5m0e7{
+	@S:5;@E:7;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s5m0e8{
+	@S:5;@E:8;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+
+.g-s6m0e5{
+	@S:6;@E:5;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s6m0e6{
+	@S:6;@E:6;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s6m0e7{
+	@S:6;@E:7;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s6m0e8{
+	@S:6;@E:8;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+
+.g-s7m0e5{
+	@S:7;@E:5;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s7m0e6{
+	@S:7;@E:6;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s7m0e7{
+	@S:7;@E:7;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s7m0e8{
+	@S:7;@E:8;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+
+.g-s8m0e5{
+	@S:8;@E:5;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s8m0e6{
+	@S:8;@E:6;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s8m0e7{
+	@S:8;@E:7;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+.g-s8m0e8{
+	@S:8;@E:8;
+	.col-main .main-wrap{margin:0 (@E * @g-C) 0 (@S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%;}
+	.col-extra {float:left; width:(@E * @g-C - @g-G); margin-left:(-@E * @g-C + @g-G);}
+}
+
+/**
+ * 布局方式：两栏
+ * 布局范例：g-s5m0 g-m0s5
+ *  <div class="g-m0s5 layout">
+        <div class="col-main">
+          <div class="main-wrap row">
+            <div style="border:1px solid #08c;height:8px"></div>
+          </div>
+        </div>
+        <div class="col-sub">
+          <div style="border:1px solid #08c;height:8px"></div>
+        </div>
+    </div>
+ * 
+ */
+.g-s5m0{
+	@S:5;
+	.col-main .main-wrap{margin:0 0 0 (@S * @g-C); width:(@g-W - @S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%; }
+}
+.g-s6m0{
+	@S:6;
+	.col-main .main-wrap{margin:0 0 0 (@S * @g-C); width:(@g-W - @S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%; }
+}
+.g-s7m0{
+	@S:7;
+	.col-main .main-wrap{margin:0 0 0 (@S * @g-C); width:(@g-W - @S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%; }
+}
+.g-s8m0{
+	@S:8;
+	.col-main .main-wrap{margin:0 0 0 (@S * @g-C); width:(@g-W - @S * @g-C);}
+	.col-sub {float:left; width:(@S * @g-C - @g-G); margin-left:-100%; }
+}
+
+.g-m0s5{
+	@S:5;
+	.col-main .main-wrap{margin:0 (@S * @g-C) 0 0;}
+	.col-extra {float:left; width:(@S * @g-C - @g-G); margin-left:-(@S * @g-C - @g-G); }
+}
+.g-m0s6{
+	@S:6;
+	.col-main .main-wrap{margin:0 (@S * @g-C) 0 0;}
+	.col-extra {float:left; width:(@S * @g-C - @g-G); margin-left:-(@S * @g-C - @g-G); }
+}
+.g-m0s7{
+	@S:7;
+	.col-main .main-wrap{margin:0 (@S * @g-C) 0 0;}
+	.col-extra {float:left; width:(@S * @g-C - @g-G); margin-left:-(@S * @g-C - @g-G); }
+}
+.g-m0s8{
+	@S:8;
+	.col-main .main-wrap{margin:0 (@S * @g-C) 0 0;}
+	.col-extra {float:left; width:(@S * @g-C - @g-G); margin-left:-(@S * @g-C - @g-G); }
+}

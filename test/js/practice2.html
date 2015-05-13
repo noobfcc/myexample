@@ -1,95 +1,172 @@
-  <script>
-  /**
- * 简单的Tab切换
- * 支持可配置项 如下参数 
- */
-    function Tab(){
-        this.config = {
-            type            : 'mouseover',    //类型 默认为鼠标移上去
-            autoplay        : true,           // 默认为自动播放
-            triggerCls      : '.list',        // 菜单项
-            panelCls        : '.tabContent',  // 内容项
-            index           : 0,              // 当前的索引0
-            switchTo        : 0,              // 切换到哪一项
-            interval        : 3000,              // 自动播放间隔时间 默认为3 以s为单位
-            pauseOnHover    : true,           // 鼠标放上去是否为暂停 默认为true
-            current         : 'current',      // 当前项添加到类名
-            hidden          : 'hidden',       // 类名 默认为hidden
-            callback        : null            // callback函数
-        };
-        this.cache = {
-            timer : undefined,
-            flag  : true
-        };
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>图片效果</title>
+<script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+<style>
+*{margin:0; padding:0}
+.clearfix:after{
+    display:block; 
+    content:"clear";
+    height:0; 
+    clear:both; 
+    overflow:hidden;
+    visibility:hidden;      
     }
-    Tab.prototype = {
-        init: function(options){
-            this.config = $.extend(this.config,options || {});
-            var self = this,
-                _config = self.config;
-            self._handler();
-        },
-        _handler: function(){
-            var self = this,
-                _config = self.config,
-                _cache = self.cache,
-                len = $(_config.triggerCls).length;
-            $(_config.triggerCls).unbind(_config.type);
-            $(_config.triggerCls).bind(_config.type,function(){
-                _cache.timer && clearInterval(_cache.timer);
-                var index = $(_config.triggerCls).index(this);
-                !$(this).hasClass(_config.current) && 
-                $(this).addClass(_config.current).siblings().removeClass(_config.current);
-                $(_config.panelCls).eq(index).removeClass(_config.hidden).siblings().addClass(_config.hidden);
+ul,li{list-style:none;}
+#box{width: 665px; margin:20px auto 0;}
+#box ul li a {color: #fff;overflow: hidden; display:block; width:100%; height:100%}
+#box ul li{float: left;margin-right: 10px; position:relative; width:100px; height:100px; overflow:hidden}
+#box ul li img{width:100px;height: 100px;}
+#box ul li div{position:absolute; width:100%; height:100%;background: none repeat scroll 0 0 rgba(0, 179, 138, 0.9); font-size: 12px; z-index:0}
+#box ul li a h2 {
+    font-size: 24px;
+    font-weight: normal;
+    height: 24px;
+    line-height: 24px;
+    margin: 10px 8px 8px;
+    overflow: hidden;
+    text-align: center;
+}
+#box ul li a em {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.3);
+    display: block;
+    height: 5px;
+    margin: 0 6px;
+}
+#box ul li a p {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 6px 8px;
+}
+</style>
+</head>
+<body>
+<div id="box" class="clearfix">
+	<ul>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d58a580011.png" alt="">
+                <div class="hot_info">
+                    <h2 title="波奇网">波奇网</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d5bc8b0012.jpg" alt="">
+                <div class="hot_info">
+                    <h2 title="猎豹移动">猎豹移动</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d5ee3d0013.png" alt="">
+                <div class="hot_info">
+                    <h2 title="快的打车">快的打车</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d624950014.jpg" alt="">
+                <div class="hot_info">
+                    <h2 title="碰碰">碰碰</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d659850015.jpg" alt="">
+                <div class="hot_info">
+                    <h2 title="人人投">人人投</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+		<li>
+        	<a href="###">
+                <img src="http://www.lagou.com/upload/promotion/ff8080814d429a94014d42d68ac10016.png" alt="">
+                <div class="hot_info">
+                    <h2 title="more chinese">more chinese</h2>
+                    <em></em>
+                    <p title="稳坐互联网宠物领域第一把交椅">
+                        稳坐互联网宠物领域第一把交椅
+                    </p>
+                </div>
+            </a>
+        </li>
+	</ul>
+</div>
+<div class="text">hehe</div>
+    
+<script type="text/javascript">
+var box = document.getElementById('box');
+var oLi = box.getElementsByTagName('li');
+var oDiv = box.getElementsByClassName('hot_info');
+for(var i=0;i<oLi.length;i++){
+	oLi[i].onmouseover = function(){	
+		for(var j=0;j<oDiv.length;j++){
+			oDiv[j].style['transition'] = '';
+		}
+		oDiv[this.index].style.left = '0';
+		oDiv[this.index].style.top = '0';
+		oDiv[this.index].style['transition'] = 'all 300ms ease 0s';
+		
+		var _self = this.index
+		oDiv[_self].onmouseout = function(){
+			setTimeout(function(){
+				oDiv[_self].style['transition'] = '';
+			},300)
+			return false;
+		}
+		
+	}
+}
 
-                // 切换完 添加回调函数
-                _config.callback && $.isFunction(_config.callback) && _config.callback(index);
-            });
-            // 默认情况下切换到第几项
-            if(_config.switchTo) {
-                $(_config.triggerCls).eq(_config.switchTo).addClass(_config.current).siblings().removeClass(_config.current);
-                $(_config.panelCls).eq(_config.switchTo).removeClass(_config.hidden).siblings().addClass(_config.hidden);
-            }
-            // 自动播放
-            if(_config.autoplay) {
-                start();
-                $(_config.triggerCls).hover(function(){
-                    if(_config.pauseOnHover) {
-                        _cache.timer && clearInterval(_cache.timer);
-                        _cache.timer = undefined;
-                    }else {
-                        return;
-                    }
-                },function(){
-                    start();
-                });
-            }
-            function start(){
-                _cache.timer = setInterval(autoRun,_config.interval);
-            }
-            function autoRun() {
-                if(_config.switchTo && (_config.switchTo == len-1)){
-                    if(_cache.flag) {
-                        _config.index = _config.switchTo;
-                        _cache.flag = false;
-                    }
-                }
-                _config.index++;
-                if(_config.index == len) {
-                    _config.index = 0;
-                }
-                $(_config.triggerCls).eq(_config.index).addClass(_config.current).siblings().removeClass(_config.current);
-                $(_config.panelCls).eq(_config.index).removeClass(_config.hidden).siblings().addClass(_config.hidden);
-            }
-        }
-    };
+document.onmousemove = function(ev){
+	var ev = ev || window.event;
+	var pageX = ev.clientX;
+	var pageY = ev.clientY;
+	
+	for(var i=0;i<oLi.length;i++){
+		if(pageY < oLi[i].offsetTop + oLi[i].offsetHeight && pageX < oLi[i].offsetLeft){ 			//移到左方
+			oDiv[i].style.left = '-100%';
+			oDiv[i].style.top = '0';		
+		}else if(pageY < oLi[i].offsetTop && pageX > oLi[i].offsetLeft){							//移到上方
+			oDiv[i].style.left = '0';
+			oDiv[i].style.top = '-100%';
+		}else if(pageY < oLi[i].offsetTop + oLi[i].offsetHeight && pageX > oLi[i].offsetLeft + oLi[i].offsetWidth){				//移到右方
+			oDiv[i].style.left = '100%';
+			oDiv[i].style.top = '0';
+		}else if(pageY > oLi[i].offsetTop + oLi[i].offsetHeight && pageX > oLi[i].offsetLeft){
+			oDiv[i].style.left = '0';
+			oDiv[i].style.top = '100%';
+		}
+	}
+}
+
 </script>
-
-$(function(){
-    new Tab().init({
-        switchTo: 1,
-        callback: function(index){
-            console.log(index);
-        }
-    });
-});
+</body>
+</html>

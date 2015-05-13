@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=(device-dpi)/2" />
+
+<title>文字滚动</title>
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<style>
+*{ margin:0px; padding:0px; font-family:'微软雅黑'; -webkit-tap-highlight-color:rgba(0,0,0,0);  }
+li{ list-style:none }
+a{ color:#fff; display:block; text-decoration:none;}
+.apple{ width:90%; height:50px; overflow:hidden; margin:30px auto; border:1px solid #1B96EE;}
+.apple a{ width:100%; height:50px; line-height:50px; text-indent:20px; color:#1B96EE;}
+
+</style>
+</head>
+
+<body>
+    <div id="quotation" style="height:17px; line-height:17px; overflow:hidden; margin-top:15px; background-color:#999  ">
+        <ul style="margin:0;padding:0; list-style:none">
+            <li style="display: list-item;">1111111111</li>
+        　　 <li style="display: list-item;">2222222</li>
+            <li style="display: list-item;">3333333333333</li>
+        </ul>
+    </div>
+
+<div class="apple">
+	<ul>
+		<li><a href="#" target="_blank">你是我的小丫小苹果 </a></li>  
+        <li><a href="#" target="_blank">怎么爱你都不嫌多</a></li> 
+        <li><a href="#" target="_blank">红红的小脸儿温暖我的心窝 </a></li>  
+        <li><a href="#" target="_blank">点亮我生命的火 火火火火</a></li> 
+        <li><a href="#" target="_blank">你是我的小丫小苹果 </a></li>  
+        <li><a href="#" target="_blank">就像天边最美的云朵</a></li>  
+        <li><a href="#" target="_blank">春天又来到了花开满山坡 </a></li>  
+        <li><a href="#" target="_blank">种下希望就会收获</a></li> 
+    </ul> 
+</div>
+<script type="text/javascript"> 
+	  function autoScroll(obj){  
+			$(obj).find("ul").animate({  
+				marginTop : "-39px"  
+			},500,function(){  
+				$(this).css({marginTop : "0px"}).find("li:first").appendTo(this);  
+			})  
+		}  
+		$(function(){  
+			setInterval('autoScroll(".apple")',2000);
+			  
+		}) 
+
+
+
+$(function() { 
+    var $this = $("#quotation"); 
+    var scrollTimer;
+    
+    $this.hover(function() { 
+        clearInterval(scrollTimer); 
+        }, function() { 
+        scrollTimer = setInterval(function() { 
+        scrollNews($this); 
+        },3000); 
+    }).trigger("mouseleave"); 
+    
+    function scrollNews(obj) { 
+        var $self = obj.find("ul"); 
+        var lineHeight = $self.find("li:first").height(); 
+        $self.animate({ 
+        "marginTop": -lineHeight + "px" 
+        },500, function() { 
+        $self.css({ 
+        marginTop: 0 
+        }).find("li:first").appendTo($self); 
+        }) 
+    } 
+}) 
+		
+</script> 
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+

@@ -1,79 +1,92 @@
-<script>(function($, window){
-	// 初始态定义
-	var _oDialogCollections = {};
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://zlzkj.com/tags" prefix="z"%>
 
-	// 插件定义
-    $.fn.MNDialog = function (_aoConfig) {
-		// 默认参数，可被重写
-    	var defaults = {
-    		// string
-    		sId : "",
-    		// num
-    		nWidth : 400,
-    		// bollean
-    		bDisplayHeader : true,
-    		// object
-			oContentHtml : "",
-    		// function
-    		fCloseCallback : null
-    	};
-
-		var _oSelf = this,
-	    	$this = $(this);
-
-	    // 插件配置
-	    this.oConfig = $.extend(defaults, _aoConfig);
-
-	    // 初始化函数
-	    var _init = function () {
-	    	if (_oDialogCollections) {
-	    		// 对于已初始化的处理
-	    		// 如果此时已经存在弹框，则remove掉再添加新的弹框
-	    	}
-			// 初始化弹出框数据
-        	_initData();
-        	// 事件绑定
-        	_loadEvent();
-        	// 加载内容
-        	_loadContent();	    	
-	    }
-	    // 私有函数
-	    var _initData = function () {};
-	    var _loadEvent = function () {};
-	    var _loadContent = function () {
-	    	// 内容（分字符和函数两种，字符为静态模板，函数为异步请求后组装的模板，会延迟，所以特殊处理）
-	    	if($.isFunction(_oSelf.oConfig.oContentHtml)) {
-				_oSelf.oConfig.oContentHtml.call(_oSelf, function(oCallbackHtml) {
-					// 便于传带参函数进来并且执行
-					_oSelf.html(oCallbackHtml);
-					// 有回调函数则执行
-					_oSelf.oConfig.fLoadedCallback && _oSelf.oConfig.fLoadedCallback.call(_oSelf, _oSelf._oContainer$);
-				});
-			} else if ($.type(_oSelf.oConfig.oContentHtml) === "string") {
-				_oSelf.html(_oSelf.oConfig.oContentHtml);
-				_oSelf.oConfig.fLoadedCallback && _oSelf.oConfig.fLoadedCallback.call(_oSelf, _oSelf._oContainer$);
-			} else {
-				console.log("弹出框的内容格式不对，应为function或者string。");
-			}
-	    };
-
-	    // 内部使用参数
-		var _oEventAlias = {
-			click 		: 'D_ck',
-			dblclick 	: 'D_dbl'
-		};
-
-		// 提供外部函数
-		this.close = function () {
-			_close();
-		}		
-
-		// 启动插件
-		_init();
-
-		// 链式调用
-		return this;	    
-    };
-    // 插件结束
-})(jQuery, window);
+<form id="form" action="${__url__}" method="post">
+	<table align="center" class="form-table">
+	<input name="nodeId"  type="hidden" value="${nodeId}">
+		<tr>
+			<td>指标名称：</td>
+			<td>
+				<select class="jq-combobox" name="reportTemplateNodeId" data-options="required:true">
+					<c:forEach var="var" items="${items}">
+						<option value="${var.id }">${var.text }</option>
+					</c:forEach>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>权重：</td>
+			<td><input name="weight" type="text" class="jq-validatebox" data-options="required:true"></td>
+		</tr>
+		<tr>
+			<td>优：</td>
+			<td class="upscore">上限分<input name="upperScore1" class="jq-numberspinner"
+				type="text" data-options="required:true" value="100">
+			</td>
+			<td class="downscore">下限分<input name="lowerScore1" class="jq-numberspinner"
+				type="text" data-options="required:true" value="90">
+			</td>
+			<td>上限值<input name="upperVal1" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+			<td>下限值<input name="lowerVal1" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+		</tr>
+		<tr>
+			<td>良：</td>
+			<td>上限分<input name="upperScore2" class="jq-numberspinner"
+				type="text" data-options="required:true" value="90">
+			</td>
+			<td>下限分<input name="lowerScore2" class="jq-numberspinner"
+				type="text" data-options="required:true" value="70">
+			</td>
+			<td>上限值<input name="upperVal2" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+			<td>下限值<input name="lowerVal2" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+		</tr>
+		<tr>
+			<td>中：</td>
+			<td>上限分<input name="upperScore3" class="jq-numberspinner"
+				type="text" data-options="required:true" value="70">
+			</td>
+			<td>下限分<input name="lowerScore3" class="jq-numberspinner"
+				type="text" data-options="required:true" value="60">
+			</td>
+			<td>上限值<input name="upperVal3" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+			<td>下限值<input name="lowerVal3" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+		</tr>
+		<tr>
+			<td>差：</td>
+			<td>上限分<input name="upperScore4" class="jq-numberspinner"
+				type="text" data-options="required:true" value="60">
+			</td>
+			<td>下限分<input name="lowerScore4" class="jq-numberspinner"
+				type="text" data-options="required:true" value="0">
+			</td>
+			<td>上限值<input name="upperVal4" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+			<td>下限值<input name="lowerVal4" class="jq-numberspinner"
+				type="text" data-options="required:true">
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<button type="submit" class="btn btn-small btn-success">确定</button>
+			</td>
+		</tr>
+	</table>
+</form>
+<script>
+	$
 </script>

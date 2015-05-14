@@ -70,3 +70,29 @@
 
 </body>
 </html>
+
+
+<body>
+	<input name="a" type="text" id="a" class="easyui-numberspinner" value="1"> 
+	<input name="c" type="text" id="c" class="easyui-numberspinner" value="">
+</body>
+</html>
+<script>
+		var d=5;
+		var c=$("#a").attr("value",d);
+		$("#a").on("click", function(){
+			alert(1);
+
+		});
+
+
+<body>
+	<input name="a" type="text" id="a" oninput='v()' onchange='v()'  value="4"> 
+	<input name="c" type="text" id="c">
+</body>
+</html>
+<script>
+    function v(){
+        document.getElementById('c').value=document.getElementById('a').value;
+    }
+</script>

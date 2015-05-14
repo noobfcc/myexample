@@ -18,13 +18,9 @@
         $("#ipt2").numberspinner("setValue", v1);
     }
 	$("#ipt").numberspinner({
-		spin:function(type){
-			if(type==true){
-				assignment();
-				alert(1);
-			}else if(type==false){
-				assignment();
-			}
+		spin:function(){
+			var v1 = $("#ipt").numberspinner("getValue");
+        	$("#ipt2").numberspinner("setValue", v1);
 		}
 	});
 	$("body").on("keyup", ".textbox-text", function() {

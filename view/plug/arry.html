@@ -10,22 +10,26 @@
     <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/icon.css">
 </head>
 <body>
-	<input  type="text" id="ipt"  value="9" class="easyui-numberspinner"> 
-	<input  type="text" id="ipt2" value="4" class="easyui-numberspinner">
+	<input  type="text" id="ipt"  value="9" class="easyui-numberspinner l"> 
+	<input  type="text" id="ipt2" class="easyui-numberspinner l">
 	<script>
 	function assignment(){
 		var v1 = $("#ipt").numberspinner("getValue");
         $("#ipt2").numberspinner("setValue", v1);
     }
 	$("#ipt").numberspinner({
-		spin:function(){
-			var v1 = $("#ipt").numberspinner("getValue");
-        	$("#ipt2").numberspinner("setValue", v1);
+		onSpinUp:function(){
+			assignment();
+		},
+		onSpinDown:function(){
+			assignment();
 		}
 	});
-	$("body").on("keyup", ".textbox-text", function() {
+	$("#ipt").next().on("keyup", ".textbox-text", function() {
 		$("#ipt2").numberspinner("setValue", $(this).val());
 	});
 	</script>
 </body>
 </html>
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>datagrid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/icon.css">
+</head>
+<body>
+	<input  type="text" id="ipt"  value="9" class="easyui-numberspinner l"> 
+	
+	<input  type="text" id="ipt3"  value="8" class="easyui-numberspinner l"> 
+	<input  type="text" id="ipt4" class="easyui-numberspinner l">
+	<input  type="text" id="ipt2" class="easyui-numberspinner l">
+	<script>
+
+
+	(function($){
+		$ .number=function(options){
+			var settings={
+				numberdoma:"#ipt",
+				numberdomb:"#ipt2",
+			}
+			var opts = $.extend({},settings,options);
+			var $numberdoma=$(opts.numberdoma);
+			var $numberdomb=$(opts.numberdomb);
+			var v1 = $numberdoma.val();
+			$numberdomb.attr("value",v1);
+			function assignment(){
+				var v1 = $numberdoma.numberspinner("getValue");
+		        $numberdomb.numberspinner("setValue", v1);
+    		}
+			$numberdoma.numberspinner({
+				onSpinUp:function(){
+					assignment();
+				},
+				onSpinDown:function(){
+					assignment();
+				}
+			});
+			$numberdoma.next().on("keyup", ".textbox-text", function() {
+				$numberdomb.numberspinner("setValue", $(this).val());
+			});	  
+		};
+	})( jQuery);  
+	$.number({
+				numberdoma:"#ipt",
+				numberdomb:"#ipt2",
+			}); 
+	$.number({
+				numberdoma:"#ipt3",
+				numberdomb:"#ipt4",
+			}); 
+</script>
+	</script>
+</body>
+</html>
+
+
+

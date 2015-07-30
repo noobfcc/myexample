@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>datagrid</title>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+	    <script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+    </head>
+    <body>
+		<input type="text" id="show">
+    </body>
+</html>
+	<script>
+		function checkTime(i){  //补位处理
+	        if(i<10){
+	            i="0"+i;
+	        }
+	        return i;
+        }
+	    var nowtime = new Date();//当前时间
+	    var nowtimestamp=nowtime.getTime();//当前时间戳
+	    var pasttimestamp=nowtimestamp-604800000;//获取毫秒数
+	    var pasttime=new Date(pasttimestamp);//把毫秒数转换成时间对象
+	    var year=pasttime.getFullYear();
+        var month=checkTime(pasttime.getMonth()+1);
+        var day=checkTime(pasttime.getDate());
+		var val=""+year+"/"+month+"/"+day;
+	    $("#show").val(val);
+
+	    //化简之后
+    	/*function checkTime(i){  //补位处理
+        if(i<10){
+            i="0"+i;
+        }
+        return i;
+        }
+  		var pasttime = new Date((new Date()).getTime()-7*24*60*60*1000);
+	    var year=pasttime.getFullYear();
+        var month=checkTime(pasttime.getMonth()+1);
+        var day=checkTime(pasttime.getDate());
+	    $("#show").val(""+year+"/"+month+"/"+day);*/
+    </script>h
+  	

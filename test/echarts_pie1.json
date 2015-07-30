@@ -1,0 +1,8 @@
+{
+	"status": 1,
+	"data": [
+		{"value":115, "name":"超阀告警"},
+		{"value":256, "name":"通断告警"}
+	],
+  "info": "success"
+}

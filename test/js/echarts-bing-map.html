@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+</head>
+<body>
+    <div id="main"style="height:500px;border:1px solid #ccc;padding:10px;"></div> 
+    <div id="maindiv"style="height:500px;border:1px solid #ccc;padding:10px;"></div>   
+</body>
+<script type="text/javascript">  
+     require.config({  
+  
+            paths: { 
+                echarts: '../../static/echarts-2.2.1/build/dist',
+  
+            }  
+  
+        });  
+  
+  
+        require(  
+  
+        [  
+  
+            'echarts',  
+  
+            'echarts/chart/map'  
+  
+        ],  
+  
+        function (ec) {  
+              var myChart = ec.init(document.getElementById('main')); 
+            option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: '{b}'
+            },
+            series : [
+                {
+                    name: '中国',
+                    type: 'map',
+                    mapType: 'china',
+                    selectedMode : 'single',
+                    itemStyle:{
+                        normal:{label:{show:true}},
+                        emphasis:{label:{show:true}}
+                    },
+                    data:[
+                        {name:'广东',selected:true}
+                    ]
+                }
+            ]
+        };
+        var ecConfig = require('echarts/config');
+        myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+            var selected = param.selected;
+            console.log(param.selected)
+            var str = '当前选择： ';
+            for (var p in selected) {
+                if (selected[p]) {
+                    str += p + ' ';
+                }
+            }
+            document.getElementById('maindiv').innerHTML = str;
+        })
+                     
+              //以下的这段代码主要是用来处理用户的选择，应用场景是可以做地图的交互，比如点击地图上的某一个省，获取相应的省的指标变化等。  
+             //需要特别注意的是，如果需要点击某一省作地图的操作交互的话，还需要为series属性的每一项添加一个selectedMode属性，这里的属性值为 'single'即单选，也可多选  
+                
+            myChart.setOption(option);  
+        }  
+    );  
+    </script>  

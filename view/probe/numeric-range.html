@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>无标题文档</title>
+        <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    	<script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+     	<link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/default/easyui.css">
+        <style>
+        div:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+        </style>
+    </head>
+<body>
+    <div>
+    <button  id="btn1">批量编辑</button>
+    <input type="text" value="hehe">
+    </div>
+    <div id="conter">
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    var i = 0;
+    $("#btn1").click(function(){
+        i=i+1;
+        if(i==1){
+            $(".xianshi").append("<input type='checkbox' class='box1'>");
+            $(".box1").css('float','left')
+        }
+        $(this).text("批量删除");
+        $("#btn1").click(function(){
+            var hobby = document.getElementsByTagName("input");
+            for(i=0;i<hobby.length;i++){
+                if(hobby[i].type=="checkbox"){
+                    hobby[i].checked = true;
+                }
+            }
+        });
+    })
+</script>
+
+
+

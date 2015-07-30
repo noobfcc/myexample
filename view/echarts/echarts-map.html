@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts地图扩展带参数两个</title>
+    <script src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+    <div id="main"style="height:500px;border:1px solid #ccc;padding:10px;"></div>  
+</body>
+<script type="text/javascript">  
+    require.config({  
+        paths: { 
+            echarts: '../../static/echarts-2.2.1/build/dist',
+        }   
+    });    
+    require(  
+            [  
+                'echarts',    
+                'echarts/chart/map'    
+            ],    
+        function (ec) {  
+            var myChart = ec.init(document.getElementById('main')); 
+            var cityMap = {
+                "无锡市": "320200"
+            };
+            var curIndx = 0;
+            var mapType = [];
+            var mapGeoData = require('echarts/util/mapData/params');
+            for (var city in cityMap) {
+                mapType.push(city);
+                // 自定义扩展图表类型
+                mapGeoData.params[city] = {
+                    getGeoJson: (function (c) {
+                        var geoJsonName = cityMap[c];
+                        return function (callback) {
+                            $.getJSON('../../test/' + geoJsonName + '.json', callback);
+                        }
+                    })(city)
+                }
+            }
+            $.get("../../test/echarts_map.json", function(data) {
+                if (data.status == 1) {
+                    var data = data.data;
+                    var arr = [];
+                    for (var i = 0; i < data.length; i++) {
+                        arr.push({
+                            name: data[i].name,
+                            value: data[i].value,
+                            level: data[i].level,
+                            ccsmile: data[i].ccsmile
+                        });
+                    }
+                    getMap(city, arr);                  
+                }
+            });     
+            function getMap(city,dataArr){      
+                option = {
+                    title: {
+                        text : city
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: function(params) {
+                            var res = params [1] +'</br>质量得分：'+ params[2]+'</br>评分等级：';
+                            //params[1]是城市名字   params[2]是传入的values数值  这边只能传入两个参数  其余的需要在下面扩展
+                            //get series
+                            var series = myChart.getOption().series;
+                            //get data in series[i]
+                            for(var i=0; i<myChart.getOption().series.length;i++){
+                                var dataArr = series[i].data;
+                                for(var j=0;l = series[i].data.length,j<l;j++) {
+                                    if(dataArr[j].name == params[1]){
+                                        res+= dataArr[j].level+'</br>教学课程:'+dataArr[j].ccsmile;     //字符串叠加使用类似于拼接
+                                    }
+                                }
+                            }
+
+                            return res;
+                        }
+                    },
+                    series : [
+                        {
+                            type: 'map',
+                            mapType: city,
+                            selectedMode : 'single',
+                            itemStyle:{
+                                normal:{label:{show:true}},
+                                emphasis:{label:{show:true}}
+                            },
+                            data:dataArr/*[
+                                {name: "江阴市",value:120, level:4,ccsmile:15},
+                                {name: "惠山区",value:120, level:4,ccsmile:15},
+                                {name: "北塘区",value:120, level:4,ccsmile:15},
+                                {name: "崇安区",value:120, level:4,ccsmile:15},
+                                {name: "锡山区",value:120, level:4,ccsmile:15},
+                                {name: "南长区",value:120, level:4,ccsmile:15},
+                                {name: "滨湖区",value:120, level:4,ccsmile:15},
+                                {name: "宜兴市",value:120, level:4,ccsmile:15}
+                            ]*/
+                        }
+                    ]
+                };    
+                var ecConfig = require('echarts/config');  
+                myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+                    var selected = param.selected;
+                    var str;
+                    for (var p in selected) {
+                        if (selected[p]) {
+                            str = p;
+                        }
+                    }
+                    if (str) {
+                        alert(str)
+                    } else {
+                        alert("quanbu");
+                    }                                                                                   
+                });
+                myChart.setOption(option);                             
+            } 
+        }
+                   
+    );  
+ 
+</script>  

@@ -1,0 +1,14 @@
+{
+  "status": 1,
+  "data":[
+    {"name": "江阴市","value":120,"level":4,"ccsmile":15},
+    {"name": "惠山区","value":10, "level":1,"ccsmile":15},
+    {"name": "北塘区","value":10, "level":1,"ccsmile":15},
+    {"name": "崇安区","value":10, "level":1,"ccsmile":15},
+    {"name": "锡山区","value":10, "level":14,"ccsmile":15},
+    {"name": "南长区","value":50, "level":4,"ccsmile":15},
+    {"name": "滨湖区","value":40, "level":4,"ccsmile":15},
+    {"name": "宜兴市","value":10, "level":1,"ccsmile":15}
+  ],
+  "info": "success"
+}

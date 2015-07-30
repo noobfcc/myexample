@@ -1,0 +1,80 @@
+
+    
+<script type="text/javascript">
+    function getChart() {
+        $.get("${__static__}/test/kpi-overview.json", function(data) {
+            if (data.status ==1) {
+                var data = data.data;
+                var nameArr = [];
+                var valueArr = [];
+                for (var i = 0; i < data.length; i++) {
+                    nameArr.push(data[i].name);
+                    valueArr.push(data[i].value);
+                }
+                renderChart(nameArr, valueArr);
+            }
+        }, "json");
+    }
+
+    function renderChart(nameArr, valueArr) {
+        var    option = {
+            title : {
+                text: '质量总览'
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    data : nameArr
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'质量',
+                    type:'bar',
+                    data: valueArr,
+                    markPoint : {
+                        data : [
+                            {type : 'max', name: '最大值'},
+                            {type : 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine : {
+                        data : [
+                            {type : 'average', name: '平均值'}
+                        ]
+                    }
+                },
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+    }
+</script>
+{
+  "status": 1,
+  "data": [{
+    "name": "ping",
+    "value":"23.2"
+  },{
+    "name": "tcping",
+    "value":"25.2"
+  }],
+  "info": "success"
+}

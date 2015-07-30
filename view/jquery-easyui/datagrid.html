@@ -28,21 +28,3 @@
 <script>
   
 </script>
-    $("#ipt").numberspinner({
-            spin:function(type){
-                if(type==true){}
-            }
-
-        });
-
-
-
-
-            onSpinUp: function() {
-                var v1 = $("#ipt").numberspinner("getValue");
-                $("#ipt2").numberspinner("setValue", v1);
-            },
-            onSpinDown: function() {
-                var v1 = $("#ipt").numberspinner("getValue");
-                $("#ipt2").numberspinner("setValue", v1);
-            }

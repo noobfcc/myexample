@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>无标题文档</title>
+        <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    	<script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+     	<link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/default/easyui.css">
+        <style>
+        div:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+        </style>
+    </head>
+<body>
+    <div>
+    <button  id="btn1">批量编辑</button>
+    <input type="text" value="hehe">
+    </div>
+    <div id="conter">
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+        <div class="xianshi">
+            hehe
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    //点击按钮
+    var i = 1,k = 0;
+    var val = new Array();
+    $(document).one('click','#btn1',function(){
+        $(".xianshi").append("<input type='checkbox' class='box1'>");
+        $(".box1").css('float','left');
+        $(this).text("批量删除");
+        $("#btn1").attr("id","btn2");
+        $('.box1').each(function() {
+            $(this).attr("value",i++); 
+        });
+    });
+    $(document).on('click','#btn2',function(){
+        var ckeds = [];
+        $(".box1:checked").each(function() {
+            ckeds.push(this.value);
+        });
+        if(ckeds.length == 0){
+            alert("请选择一条记录");
+        }
+    });
+        
+</script>
+
+
+

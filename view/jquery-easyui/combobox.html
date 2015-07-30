@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>datagrid</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../static/mod/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/icon.css">
+</head>
+<body>
+    <tr>
+            <td>测试类型：</td>
+            <td>
+                <select name=""  id="select-cc-one" >
+                    <c:forEach var="var" items="${items}">
+                        <option value="${var.alias }">${var.text }</option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>测试参数：</td>
+            <td>
+                <input  id="select-cc-two" type="text" name="paraId" data-options="required:true">
+            </td>
+        </tr>
+</body>
+</html>
+<script>
+    function select(realurl){
+        $('#select-cc-two').combobox({
+            valueField:'id',
+            textField:'text',
+            url:realurl
+        });
+    }
+    $('#select-cc-one').combobox({
+        onSelect: function(rec){
+            var realurl = '${z:u("para/list_combobox")}?alias='+rec.value;
+            select(realurl);
+        },
+        onLoadSuccess:function(){
+            var getselect = $('#select-cc-one').combobox('getValue');
+            var realurl ='${z:u("para/list_combobox")}?alias='+getselect;
+            select(realurl);
+        }
+    });
+</script>

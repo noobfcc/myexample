@@ -8,8 +8,12 @@
     {"name": "锡山区","value":10, "level":14,"ccsmile":15},
     {"name": "南长区","value":50, "level":4,"ccsmile":15},
     {"name": "滨湖区","value":40, "level":4,"ccsmile":15},
-    {"name": "宜兴市","value":10, "level":1,"ccsmile":15},
+    {"name": "宜兴市","value":10, "level":1,"ccsmile":15}
+  ],
+  "geocoord":[
+    {"mark": "申港街道","coord":[120.146646,31.891799]},
+    {"mark": "宜兴市广汇三期","coord":[119.8299590000,31.4006880000]},
+    {"mark": "宜兴市太华镇","coord":[119.597432,31.185373]}
   ],
   "info": "success"
-}
-
+} 

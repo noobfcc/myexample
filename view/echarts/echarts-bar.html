@@ -37,7 +37,7 @@
         require(
                 [
                     'echarts',
-                    'echarts/chart/line'
+                    'echarts/chart/bar'
                 ],
             function(ec) {
                 var chartObj = ec.init(document.getElementById('load_chart'), "macarons");
@@ -54,9 +54,7 @@
                             stateName.push(stateList[i].name);
                             dimension.push({
                                             name: stateList[i].name,
-                                            type:'line',
-                                            symbol: 'Circle',
-                                            symbolSize: '3',
+                                            type:'bar',
                                             data: function() {
                                                 var dataList = [];
                                                 for (var m = 0; m < stateList[i].state.length; m++) {
@@ -92,7 +90,6 @@
                 xAxis : [
                     {
                         type : 'category',
-                        boundaryGap : false,
                         data : timeList
                     }
                 ],
@@ -104,7 +101,6 @@
                 ],
                 series : dimension
             };
-
         }
     }
 </script>

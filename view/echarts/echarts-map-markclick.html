@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>ECharts地图扩展参数两个</title>
+    <title>ECharts地图扩展带参数两个</title>
     <script src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
     <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
 </head>
@@ -15,11 +15,11 @@
         }   
     });    
     require(  
-            [  
-                'echarts',    
-                'echarts/chart/map'    
-            ],    
-         function (ec) {  
+        [  
+            'echarts',    
+            'echarts/chart/map'    
+        ],    
+        function (ec) {  
             var myChart = ec.init(document.getElementById('main')); 
             var cityMap = {
                 "无锡市": "320200"
@@ -34,11 +34,41 @@
                     getGeoJson: (function (c) {
                         var geoJsonName = cityMap[c];
                         return function (callback) {
-                            $.getJSON('../js/db/' + geoJsonName + '.json', callback);
+                            $.getJSON('../../test/' + geoJsonName + '.json', callback);
                         }
-                        })(city)
-                    }
+                    })(city)
                 }
+            }
+            $.get("../../test/echarts_map_markclick.json", function(data) {
+                if (data.status == 1) {
+                    console.log(data.geocoord.length);
+                    var data = data.data;
+                    var arr = []; 
+                  /*  var geocoord=data.geocoord;
+                    var markArr = [];
+                    var coordsArr = [];
+                    var v1,v2;*/
+                    for (var i = 0; i < data.length; i++) {
+                        arr.push({
+                            name: data[i].name,
+                            value: data[i].value,
+                            level: data[i].level,
+                            ccsmile: data[i].ccsmile
+                        });                     
+                    };
+                   /* for (var j = 0;j < geocoord.length; j++) {
+                        markArr.push({
+                            name:geocoord[j].mark,
+                        });
+                        coordsArr.push({
+                            v1:geocoord[j].mark,
+                            v2:geocoord[j].coord
+                        });  
+                    };*/
+                    getMap(city, arr/*,markArr,coordsArr*/);                  
+                }
+            });     
+            function getMap(city,dataArr){      
                 option = {
                     title: {
                         text : city
@@ -46,8 +76,8 @@
                     tooltip : {
                         trigger: 'item',
                         formatter: function(params) {
-                            var res = params [1] ;
-                            //params[1]是城市名字   params[2]是传入的values数值
+                            var res = params [1] +'</br>质量得分：'+ params[2]+'</br>评分等级：';
+                            //params[1]是城市名字   params[2]是传入的values数值  这边只能传入两个参数  其余的需要在下面扩展
                             //get series
                             var series = myChart.getOption().series;
                             //get data in series[i]
@@ -55,10 +85,11 @@
                                 var dataArr = series[i].data;
                                 for(var j=0;l = series[i].data.length,j<l;j++) {
                                     if(dataArr[j].name == params[1]){
-                                        res+= dataArr[j].level+'</br>质量得分：'+ params[2]+'</br>评分等级：'+dataArr[j].level+'</br>教学课程:'+dataArr[j].ccsmile;     //字符串叠加使用类似于拼接
+                                        res+= dataArr[j].level+'</br>教学课程:'+dataArr[j].ccsmile;     //字符串叠加使用类似于拼接
                                     }
                                 }
                             }
+
                             return res;
                         }
                     },
@@ -71,9 +102,16 @@
                                 normal:{label:{show:true}},
                                 emphasis:{label:{show:true}}
                             },
-                            data:[
-                                {name:'江阴市',value:120, level:4,ccsmile:15}
-                            ],
+                            data:dataArr,/*[
+                                {name: "江阴市",value:120, level:4,ccsmile:15},
+                                {name: "惠山区",value:120, level:4,ccsmile:15},
+                                {name: "北塘区",value:120, level:4,ccsmile:15},
+                                {name: "崇安区",value:120, level:4,ccsmile:15},
+                                {name: "锡山区",value:120, level:4,ccsmile:15},
+                                {name: "南长区",value:120, level:4,ccsmile:15},
+                                {name: "滨湖区",value:120, level:4,ccsmile:15},
+                                {name: "宜兴市",value:120, level:4,ccsmile:15}
+                            ]*/
                             markPoint : {
                                 symbolSize: 5,       // 标注大小，半宽（半径）参数，当图形为方向或菱形则总宽度为symbolSize * 2
                                 itemStyle: {
@@ -92,13 +130,13 @@
                                         }
                                     }
                                 },
-                                data : [
+                                data:/*markArr*/ [
                                     {name: "申港街道"},
                                     {name: "宜兴市广汇三期"},
-                                    {name: "宜兴市太华镇"}                                  
+                                    {name: "宜兴市太华镇"}
                                 ]
                             },
-                            geoCoord: {
+                            geoCoord:/*coordsArr*/{                                
                                 "申港街道":[120.146646,31.891799],
                                 "宜兴市广汇三期":[119.8299590000,31.4006880000],
                                 "宜兴市太华镇":[119.597432,31.185373]
@@ -120,19 +158,16 @@
                     } else {
                         alert("quanbu");
                     }                                                                                   
-                });            
+                });
                 myChart.setOption(option);
-                function eConsole(param) { 
-                    console.log(param);
+                function eConsole(param) {
                     if(param.seriesName == undefined){
-                        console.log(param);
+                        console.log("hahahahaha")
                     }
-                    
-                }
-                myChart.on(ecConfig.EVENT.CLICK, eConsole);                 
-        }  
+            }
+            myChart.on(ecConfig.EVENT.CLICK, eConsole);                             
+            } 
+        }
     );  
-   
-
-
-    </script>  
+ 
+</script>  

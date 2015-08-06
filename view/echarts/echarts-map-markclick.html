@@ -41,34 +41,32 @@
             }
             $.get("../../test/echarts_map_markclick.json", function(data) {
                 if (data.status == 1) {
-                    console.log(data.geocoord.length);
-                    var data = data.data;
+                    var dataplace = data.dataplace;
                     var arr = []; 
-                  /*  var geocoord=data.geocoord;
+                    var geocoord=data.geocoord;
                     var markArr = [];
-                    var coordsArr = [];
-                    var v1,v2;*/
-                    for (var i = 0; i < data.length; i++) {
+                    var coordsArr = "";
+                    var v1,v2;
+                    for (var i = 0; i < dataplace.length; i++) {
                         arr.push({
-                            name: data[i].name,
-                            value: data[i].value,
-                            level: data[i].level,
-                            ccsmile: data[i].ccsmile
+                            name: dataplace[i].name,
+                            value: dataplace[i].value,
+                            level: dataplace[i].level,
+                            ccsmile: dataplace[i].ccsmile
                         });                     
                     };
-                   /* for (var j = 0;j < geocoord.length; j++) {
+                    for (var j = 0;j < geocoord.length; j++) {
                         markArr.push({
                             name:geocoord[j].mark,
                         });
-                        coordsArr.push({
-                            v1:geocoord[j].mark,
-                            v2:geocoord[j].coord
-                        });  
-                    };*/
-                    getMap(city, arr/*,markArr,coordsArr*/);                  
+                        coordsArr +="{'"+geocoord[j].mark+"':'"+geocoord[j].coord+"'},";  
+                    };
+                   
+                    console.log(JSON.parse(coordsArr));
+                    getMap(city,arr,markArr,coordsArr);                  
                 }
             });     
-            function getMap(city,dataArr){      
+            function getMap(city,dataArr,markArr,coordsArr){      
                 option = {
                     title: {
                         text : city
@@ -76,7 +74,7 @@
                     tooltip : {
                         trigger: 'item',
                         formatter: function(params) {
-                            var res = params [1] +'</br>质量得分：'+ params[2]+'</br>评分等级：';
+                            var res = params [1];
                             //params[1]是城市名字   params[2]是传入的values数值  这边只能传入两个参数  其余的需要在下面扩展
                             //get series
                             var series = myChart.getOption().series;
@@ -85,7 +83,7 @@
                                 var dataArr = series[i].data;
                                 for(var j=0;l = series[i].data.length,j<l;j++) {
                                     if(dataArr[j].name == params[1]){
-                                        res+= dataArr[j].level+'</br>教学课程:'+dataArr[j].ccsmile;     //字符串叠加使用类似于拼接
+                                        res+= '</br>质量得分：'+ params[2]+'</br>评分等级：'+dataArr[j].level+'</br>教学课程:'+dataArr[j].ccsmile;     //字符串叠加使用类似于拼接
                                     }
                                 }
                             }
@@ -130,17 +128,17 @@
                                         }
                                     }
                                 },
-                                data:/*markArr*/ [
+                                data:markArr /*[
                                     {name: "申港街道"},
                                     {name: "宜兴市广汇三期"},
                                     {name: "宜兴市太华镇"}
-                                ]
+                                ]*/
                             },
-                            geoCoord:/*coordsArr*/{                                
+                            geoCoord:coordsArr/*{                                
                                 "申港街道":[120.146646,31.891799],
                                 "宜兴市广汇三期":[119.8299590000,31.4006880000],
                                 "宜兴市太华镇":[119.597432,31.185373]
-                            }
+                            }*/
                         }
                     ]
                 };    

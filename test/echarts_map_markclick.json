@@ -1,6 +1,6 @@
 {
   "status": 1,
-  "data":[
+  "dataplace":[
     {"name": "江阴市","value":120,"level":4,"ccsmile":15},
     {"name": "惠山区","value":10, "level":1,"ccsmile":15},
     {"name": "北塘区","value":10, "level":1,"ccsmile":15},

@@ -45,8 +45,8 @@
                     var arr = []; 
                     var geocoord=data.geocoord;
                     var markArr = [];
-                    var coordsArr = "";
-                    var v1,v2;
+                   /* var coordsObj = {};*/
+                    var opt= {};
                     for (var i = 0; i < dataplace.length; i++) {
                         arr.push({
                             name: dataplace[i].name,
@@ -55,18 +55,23 @@
                             ccsmile: dataplace[i].ccsmile
                         });                     
                     };
-                    for (var j = 0;j < geocoord.length; j++) {
+                    // for (var j = 0;j < geocoord.length; j++) { 
+                    //      markArr.push({
+                    //         name:geocoord[j].mark,
+                    //     });
+
+                    //     coordsObj[geocoord[j].mark] = geocoord[j].coord;                      
+                    // }
+                    for (var mark in data.hehe) {
                         markArr.push({
-                            name:geocoord[j].mark,
+                            name:mark
                         });
-                        coordsArr +="{'"+geocoord[j].mark+"':'"+geocoord[j].coord+"'},";  
-                    };
-                   
-                    console.log(JSON.parse(coordsArr));
-                    getMap(city,arr,markArr,coordsArr);                  
+                    }
+                    console.log(markArr);
+                    getMap(city,arr,markArr,data.hehe);                  
                 }
             });     
-            function getMap(city,dataArr,markArr,coordsArr){      
+            function getMap(city,dataArr,markArr, coordsObj){      
                 option = {
                     title: {
                         text : city
@@ -134,11 +139,7 @@
                                     {name: "宜兴市太华镇"}
                                 ]*/
                             },
-                            geoCoord:coordsArr/*{                                
-                                "申港街道":[120.146646,31.891799],
-                                "宜兴市广汇三期":[119.8299590000,31.4006880000],
-                                "宜兴市太华镇":[119.597432,31.185373]
-                            }*/
+                            geoCoord:coordsObj
                         }
                     ]
                 };    

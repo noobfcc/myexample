@@ -66,6 +66,9 @@
                                             }()
                             });
                         }
+                        if(timeList == ""||stateName==""||dimension==""){
+                          $("#load_chart").html('<span style="display:block;margin-left:45%;padding-top:15%;color:orangered;font-size:20px;">--暂无数据--</span>');
+                        }///暂无数据
                         renderChart(stateName, timeList , dimension);
                         chartObj.setOption(option);
                     }, "json");

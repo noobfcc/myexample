@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>柱形图加和</title>
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script  src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+   
+</body>
+<script>
+    require.config({
+            paths: {
+                echarts: '../../static/echarts-2.2.1/build/dist'
+            }
+        });
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' 
+            ],
+            function (ec) {
+                var myChart = ec.init(document.getElementById('main')); 
+              option = {
+    title : {
+        text: '温度计式图表',
+        subtext: 'From ExcelHome',
+        sublink: 'http://e.weibo.com/1341556070/AizJXrAEa'
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        },
+        formatter: function (params){
+            return params[0].name + '<br/>'
+                   + params[0].seriesName + ' : ' + params[0].value + '<br/>'
+                   + params[1].seriesName + ' : ' + (params[1].value + params[0].value);
+        }
+    },
+    legend: {
+        selectedMode:false,
+        data:['Acutal', 'Forecast']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['Cosco','CMA','APL','OOCL','Wanhai','Zim']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            boundaryGap: [0, 0.1]
+        }
+    ],
+    series : [
+        {
+            name:'Acutal',
+            type:'bar',
+            stack: 's',
+            barCategoryGap: '50%',
+            itemStyle: {
+                normal: {
+                    color: 'tomato',
+                    barBorderColor: 'tomato',
+                    barBorderWidth: 6,
+                    barBorderRadius:0,
+                    label : {
+                        show: true, position: 'insideTop'
+                    }
+                }
+            },
+            data:[260, 200, 220, 120, 100, 80]
+        },
+        {
+            name:'Forecast',
+            type:'bar',
+            stack: 's',
+            itemStyle: {
+                normal: {
+                    color: '#fff',
+                    barBorderColor: 'tomato',
+                    barBorderWidth: 6,
+                    barBorderRadius:0,
+                    label : {
+                        show: true, 
+                        position: 'top',
+                        formatter: function (params) {
+                            console.log(params);
+                            for (var i = 0, l = option.xAxis[0].data.length; i < l; i++) {
+                                if (option.xAxis[0].data[i] == params.name) {
+                                    console.log(option.series[0].data[i]);
+                                    console.log(option.series[0].data[i] + params.value);
+                                    return option.series[0].data[i] + params.value;
+                                }
+                            }
+                        },
+                        textStyle: {
+                            color: 'tomato'
+                        }
+                    }
+                }
+            },
+            data:[40, 80, 50, 80,80, 70]
+        }
+    ]
+};
+                    
+                    
+                    myChart.setOption(option); 
+            }
+        );
+    </script>
+ 
+                  

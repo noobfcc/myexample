@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script  src="../../static/echarts-2.2.1/build/dist/echarts.js"></script>
+    <link rel="stylesheet" href="../../static/app/css/app.css">
+    <style>
+    .btn{
+        height:30px;
+        width:50px;
+        background-color: blue;
+    }
+    </style>
+</head>
+<body>
+    <div class="sel">
+        <span>质量配置：</span>
+        <label><input name="Fruit" type="checkbox" value="质量总览" />质量总览</label> 
+        <label><input name="Fruit" type="checkbox" value="TcpPing测试" />TcpPing测试 </label> 
+        <label><input name="Fruit" type="checkbox" value="Ping测试" />Ping测试</label> 
+        <label><input name="Fruit" type="checkbox" value="邮件测试" />邮件测试 </label> 
+    </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div class="bigbox">
+    </div>
+    <button id="create_data" class="btn">统计</button>
+    <button id="create_del" class="btn">统计</button>
+    <input id="time_et" type="text">
+    <input id="time_st" type="text">
+    <input id="choose_dimension" type="text">
+    <!-- ECharts单文件引入 -->
+   
+</body>
+<script>
+var chk_value =[];    
+function hehe(){$.get("../../test/echarts_dynamic_address.json",
+    function(data){
+        if (data.status ==1) {
+            var data = data.data;           
+            for(i=0; i<data.length; i++){
+                 for(k=0; k<chk_value.length; k++){
+                    if(data[i].ct == chk_value[k]){
+                        $(".bigbox").append('<div class="del" id="load_chart'+i+'" style="float:left;height:400px;width:50%"></div>')
+                        getChart(data[i].url,'load_chart'+i+'',data[i].ct);
+                    }
+                 }
+
+            }
+
+        }
+}, "json");}
+ hehe();
+$("#create_data").on("click", function() {
+    chk_value =[];    
+    $('.sel input:checked').each(function(){    
+        chk_value.push($(this).val());    
+    });
+    console.log(chk_value.length==0 ?'你还没有选择任何内容！':chk_value);       
+    $(".del").remove()
+    hehe();
+});
+function getChart(url,dom,ct){
+        require.config({
+            paths: {
+                echarts: '../../static/echarts-2.2.1/build/dist' 
+            }
+        });
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/bar'
+                ],
+            function(ec) {
+                var dimensionId = $("#choose_dimension").val();
+                var st = $("#time_st").val();
+                var et = $("#time_et").val();
+                $.get(url,
+                    function(data){
+                            if (data.status ==1) {
+                            console.log(data)
+                            var data = data.data;
+                            var nameArr = [];
+                            var valueArr = [];
+                            for (var j = 0; j < data.length; j++) {
+                                nameArr.push(data[j].name);
+                                valueArr.push(data[j].value);
+                            }
+                        }
+                      renderChart(nameArr,valueArr,ct);
+                      ec.init(document.getElementById(dom), "macarons").setOption(option);
+                }, "json");                  
+            }
+        );
+        function renderChart(timeList,arr,ct) {
+            option= {
+                title : {
+                    text: ct
+                },
+                backgroundColor: "#f7f7f7",
+                tooltip : {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : timeList
+                    }
+                ],
+                yAxis : [
+                    {
+                        name : '数量',
+                        type : 'value'
+                    }
+                ],
+                series :[
+                     {
+                        name: '质量',
+                        type: 'bar',
+                        data: arr,
+                    }
+                ]                
+            }
+        }
+    }
+</script>
+
+
+   

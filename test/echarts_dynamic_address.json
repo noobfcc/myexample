@@ -1,0 +1,9 @@
+{
+	"status": 1,
+	"data": [
+		{"url":"../../test/echarts_pie2.json?dimensionId=","ct":"质量总览"},
+		{"url":"../../test/echarts_pie2.json?dimensionId=","ct":"TcpPing测试"},
+		{"url":"../../test/echarts_pie2.json?dimensionId=","ct":"Ping测试"}
+	],
+  "info": "success"
+}

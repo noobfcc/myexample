@@ -1,0 +1,9 @@
+{
+"status": 1,
+"data": [
+	{"value":115, "name":"Office"},
+	{"value":256, "name":"Online"},
+	{"value":256, "name":"未使用"}
+],
+  "info": "success"
+}

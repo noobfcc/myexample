@@ -16,7 +16,7 @@
 <body>
     <div class="sel">
         <span>质量配置：</span>
-        <label><input name="Fruit" type="checkbox" value="质量总览" />质量总览</label> 
+        <label><input name="Fruit" type="checkbox" checked="ture" value="质量总览" />质量总览</label> 
         <label><input name="Fruit" type="checkbox" value="TcpPing测试" />TcpPing测试 </label> 
         <label><input name="Fruit" type="checkbox" value="Ping测试" />Ping测试</label> 
         <label><input name="Fruit" type="checkbox" value="邮件测试" />邮件测试 </label> 
@@ -40,12 +40,18 @@ function hehe(){$.get("../../test/echarts_dynamic_address.json",
             var data = data.data;           
             for(i=0; i<data.length; i++){
                  for(k=0; k<chk_value.length; k++){
-                    if(data[i].ct == chk_value[k]){
+                    if(chk_value[k] == data[i].ct ){
                         $(".bigbox").append('<div class="del" id="load_chart'+i+'" style="float:left;height:400px;width:50%"></div>')
-                        getChart(data[i].url,'load_chart'+i+'',data[i].ct);
+                        if(data[i].url!=""){ 
+                            getChart(data[i].url,'load_chart'+i+'',data[i].ct);
+                            $("#"+'load_chart'+i+'').on('click',function(){
+                                console.log('load_chart'+i);
+                            });
+                        }else{
+                             $("#"+'load_chart'+i+'').html('<span style="display:block;margin-left:50%;padding-top:20%;color:orangered;font-size:20px;">'+'--'+'('+data[i].ct+')'+'暂无数据--'+'</span>');
+                        }
                     }
                  }
-
             }
 
         }
@@ -77,8 +83,7 @@ function getChart(url,dom,ct){
                 var et = $("#time_et").val();
                 $.get(url,
                     function(data){
-                            if (data.status ==1) {
-                            console.log(data)
+                        if (data.status ==1) {
                             var data = data.data;
                             var nameArr = [];
                             var valueArr = [];
@@ -86,9 +91,27 @@ function getChart(url,dom,ct){
                                 nameArr.push(data[j].name);
                                 valueArr.push(data[j].value);
                             }
+                            if(data.length == 0){
+                               $("#"+dom).html('<span style="display:block;margin-left:50%;padding-top:20%;color:orangered;font-size:20px;">--暂无数据--</span>');
+                            }else{
+                            renderChart(nameArr,valueArr,ct);
+                           /* var ecConfig = require('echarts/config');
+                            function eConsole(param) {
+                                alert(param);
+                                
+                                if (typeof param.seriesIndex != 'undefined') {
+                                    alert(1);
+                                }
+                            };
+                              ec.init(document.getElementById(dom), "macarons").on('click', function (param) {
+                                   alert('点击了我！');
+                             });
+                            console.log(eConsole);
+                            ec.init(document.getElementById(dom), "macarons").on(ecConfig.EVENT.CLICK, eConsole);*/
+                            ec.init(document.getElementById(dom), "macarons").setOption(option);}
+
                         }
-                      renderChart(nameArr,valueArr,ct);
-                      ec.init(document.getElementById(dom), "macarons").setOption(option);
+                     
                 }, "json");                  
             }
         );
@@ -127,6 +150,12 @@ function getChart(url,dom,ct){
                         name: '质量',
                         type: 'bar',
                         data: arr,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                       }
                     }
                 ]                
             }

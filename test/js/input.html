@@ -50,7 +50,7 @@
         $("#input").on("focus blur", function(e) {
             var val = $(this).val();
             if (e.type == "focus") {
-                if (val == defaultValue) {
+            	if ($(this).val() == "defaultValue") {
                     $(this).val("");
                 }                                       //进入焦点时触发
             }

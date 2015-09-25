@@ -9,6 +9,7 @@
     <div id="main"style="height:500px;border:1px solid #ccc;padding:10px;"></div>  
 </body>
 <script type="text/javascript">  
+    testtip = 0 
     require.config({  
         paths: { 
             echarts: '../../static/echarts-2.2.1/build/dist',
@@ -67,7 +68,6 @@
                             name:mark
                         });
                     }
-                    console.log(markArr);
                     getMap(city,arr,markArr,data.hehe);                  
                 }
             });     
@@ -145,17 +145,18 @@
                 };    
                 var ecConfig = require('echarts/config');  
                 myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+                    console.log(param);
                     var selected = param.selected;
-                    var str;
+                    var str;          
                     for (var p in selected) {
                         if (selected[p]) {
                             str = p;
                         }
                     }
                     if (str) {
-                        alert(str)
+                        console.log(str)
                     } else {
-                        alert("quanbu");
+                        console.log("quanbu");
                     }                                                                                   
                 });
                 myChart.setOption(option);
@@ -164,7 +165,12 @@
                         console.log("hahahahaha")
                     }
             }
-            myChart.on(ecConfig.EVENT.CLICK, eConsole);                             
+            myChart.on(ecConfig.EVENT.CLICK, eConsole);
+            $("#main").on("dblclick",function(param){
+     
+                        alert(testtip);
+  
+                });                             
             } 
         }
     );  

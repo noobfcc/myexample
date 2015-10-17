@@ -12,21 +12,21 @@
 </head>
 <body>
     <tr>
-            <td>测试类型：</td>
-            <td>
-                <select name=""  id="select-cc-one" >
-                    <c:forEach var="var" items="${items}">
-                        <option value="${var.alias }">${var.text }</option>
-                    </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>测试参数：</td>
-            <td>
-                <input  id="select-cc-two" type="text" name="paraId" data-options="required:true">
-            </td>
-        </tr>
+        <td>测试类型：</td>
+        <td>
+            <select name=""  id="select-cc-one" >
+                <c:forEach var="var" items="${items}">
+                    <option value="${var.alias }">${var.text }</option>
+                </c:forEach>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>测试参数：</td>
+        <td>
+            <input  id="select-cc-two" type="text" name="paraId" data-options="required:true">
+        </td>
+    </tr>
 </body>
 </html>
 <script>

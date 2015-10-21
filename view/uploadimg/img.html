@@ -1,644 +1,108 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <title>Fine Uploader Live Demo and Javascript Code Examples</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Fine Uploader demos and javascript code examples" />
-    <meta name="keywords" content="fineuploader live demo, fine uploader demo, fine uploader javascript example, fineuploader javascript samples" />
-    <meta name="author" content="Widen" />
-
-    <link href="http://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet" type="text/css" />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/custom.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="http://jmblog.github.com/color-themes-for-highlightjs/css/themes/tomorrow.css" />
-
-    <!--[if IE 8]>
-        <link rel="stylesheet" type="text/css" href="css/ie8.css" >
-    <![endif]-->
-    <!--[if lt IE 9]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
-    <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="js/ui/ui-scripts.js"></script>
-    <script src="http://yandex.st/highlightjs/7.2/highlight.min.js"></script>
-
-    <script src="/source/all.fine-uploader.min.js"></script>
-    <link href="/source/fine-uploader-gallery.min.css" rel="stylesheet" />
-    <link href="/source/fine-uploader-new.min.css" rel="stylesheet" />
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../static/mod/webuploader/webuploader.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="../../static/mod/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="../../static/mod/jquery-easyui-1.4.2/themes/icon.css">
 </head>
-
 <body>
-    <div class="jumbotron-small fixed">
-        <div class="container">
-            <div id="navbar"></div>
-        </div>
-    </div>
-
-    <div class="container marketing demo-list">
-
-        <hgroup class="center">
-            <h1>Demos</h1>
-            <h3>Fine Uploader is the <span class="orange">easiest</span> javascript file uploader library to set up.</h3>
-            <h4>Code examples are provided, whether you are using a jQuery wrapper, or plain JavaScript.</h4>
-        </hgroup>
-
-        <div class="spacer"></div>
-
-        <div class="row-fluid" style="text-align: left;">
-            <div class="span2 left">
-                <ul class="nav nav-tabs nav-stacked demo-subnav">
-                    <li><a href="#basic-setup">Basic Setup</a></li>
-                    <li><a href="#gallery-view">Gallery View</a></li>
-                    <li><a href="#manually-trigger-uploads">Manual Trigger</a></li>
-                    <li><a href="#validation">Validation</a></li>
-                    <li><a href="#amazon-demo">Upload to Amazon S3</a></li>
-                </ul>
-            </div>
-
-            <div class="span10">
-
-                <section id="basic-setup" class="demo-section">
-                    <h3>Basic Setup</h3>
-                    <p class="demo-description">Want to upload files to your own server?  You need only to include a CSS file,
-                        a JavaScript file, and handle the uploads on the server side according to the technology you are using.
-                        There are absolutely no other dependencies.</p>
-                    <p>You can quickly set up an HTML page in order to use Fine Uploader:</p>
-                    <ol>
-                        <li>Download and unpack the <a href="downloads.html">latest version of Fine Uploader</a>.</li>
-                        <li>Use one of the provided server scripts, or write your own.</li>
-                        <li>Setup your HTML and JavaScript.</li>
-                        <li>Upload!</li>
-                    </ol>
-
-                    <p class="demo-description">Have a look at the following live demos for examples of common setups.</p>
-                </section>
-
-                <section id="gallery-view" class="demo-section">
-                    <h3>Gallery View for Images</h3>
-                    <p class="demo-description">In this demo, we're utilizing Fine Uploader 4's client-side image
-                        preview generation feature.  Note that client-side previews are only supported in modern browsers
-                        (not IE9 and older).  For more info, see the <a href="http://docs.fineuploader.com/features/thumbnails.html">thumbnail feature docs</a>.</p>
-                    <p>This uploader is also restricted in</p>
-                    <ul>
-                        <li>allowed extensions (<code>jpeg</code>, <code>jpg</code>, <code>gif</code>, and <code>png</code>)</li>
-                    </ul>
-
-                    <p>This demo uses the <a href="https://github.com/Widen/fine-uploader/blob/master/client/html/templates/simple-thumbnails.html">default simple thumbnails template</a> bundled with Fine Uploader UI.
-                        For details on customizing templates, see the <a href="http://docs.fineuploader.com/features/styling.html">styling documentation</a>.</p>
-
-                    <p>Note: File bytes are not actually being sent to the server for this demo due to limitations of the GitHub Pages server.</p>
-
-                    <!--START GALLERY DEMO CODE-->
-                    <script type="text/template" id="qq-template-gallery">
-                        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
-                            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-                            </div>
-                            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                                <span class="qq-upload-drop-area-text-selector"></span>
-                            </div>
-                            <div class="qq-upload-button-selector qq-upload-button">
-                                <div>Upload files</div>
-                            </div>
-                            <span class="qq-drop-processing-selector qq-drop-processing">
-                                <span>Processing dropped files...</span>
-                                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-                            </span>
-                            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
-                                <li>
-                                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                                    <div class="qq-progress-bar-container-selector qq-progress-bar-container">
-                                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                                    </div>
-                                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                                    <div class="qq-thumbnail-wrapper">
-                                        <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
-                                    </div>
-                                    <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
-                                    <button type="button" class="qq-upload-retry-selector qq-upload-retry">
-                                        <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
-                                        Retry
-                                    </button>
-
-                                    <div class="qq-file-info">
-                                        <div class="qq-file-name">
-                                            <span class="qq-upload-file-selector qq-upload-file"></span>
-                                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
-                                        </div>
-                                        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                                        <span class="qq-upload-size-selector qq-upload-size"></span>
-                                        <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
-                                            <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
-                                        </button>
-                                        <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
-                                            <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
-                                        </button>
-                                        <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
-                                            <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <dialog class="qq-alert-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Close</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-confirm-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">No</button>
-                                    <button type="button" class="qq-ok-button-selector">Yes</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-prompt-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <input type="text">
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
-                                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                                </div>
-                            </dialog>
-                        </div>
-                    </script>
-
-                    <div id="fine-uploader-gallery"></div>
-                    <script src="/js/demo/gallery-view.js"></script>
-                    <!--END GALLERY DEMO CODE-->
-
-                    <div class="view-code">
-                        <button type="button" class="btn-link"><i class="icon-eye-open"></i>View Code</button>
-                        <div class="source-view">
-                            <ul role="tablist" class="code-example">
-                                <li role="tab" aria-controls="no-dependencies-tab-gallery-view" tabindex="0" id="no-dependencies-tab-gallery-view-control" class="code-tab activeTabTrigger" data-tab="no-dependencies-tab-gallery-view">No Dependencies</li>
-                                <li role="tab" aria-controls="jquery-tab-gallery-view" tabindex="0" id="jquery-tab-gallery-view-control" class="code-tab" data-tab="jquery-tab-gallery-view">jQuery</li>
-
-                                <pre role="tabpanel" aria-labelledby="no-dependencies-tab-gallery-view-control" id="no-dependencies-tab-gallery-view" class="code-window active">
-                                    <code class="example xml" data-demo="gallery-view"></code>
-                                </pre>
-                                <pre role="tabpanel" aria-labelledby="jquery-tab-gallery-view-control" id="jquery-tab-gallery-view" class="code-window">
-                                    <code class="example" data-demo="jquery-gallery-view"></code>
-                                </pre>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                </section>
-
-                <section id="manually-trigger-uploads" class="demo-section">
-                    <h3>Manually Trigger Uploads & Edit File Names</h3>
-                    <p class="demo-description">The default behavior of Fine Uploader is to immediately attempt to upload files as they are selected. One option allows you to simply queue all files, and then start uploading at a later time by calling <code>uploadStoredFiles()</code> on your Fine Uploader instance.  You can also easily allow your users to edit the names of each submitted file before uploading.</p>
-                    <p class="demo-description">This Fine Uploader instance below also demonstrates the <a href="http://docs.fineuploader.com/branch/master/features/filename-edit.html">edit file name feature</a>, which allows you to edit the name of any file before it is uploaded, simply by clicking on the "pencil" icon.</p>
-                    <p>Note: File bytes are not actually being sent to the server for this demo due to limitations of the GitHub Pages server.</p>
-
-                    <!--start manual trigger demo code-->
-                    <script type="text/template" id="qq-template-manual-trigger">
-                        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
-                            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-                            </div>
-                            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                                <span class="qq-upload-drop-area-text-selector"></span>
-                            </div>
-                            <div class="buttons">
-                                <div class="qq-upload-button-selector qq-upload-button">
-                                    <div>Select files</div>
-                                </div>
-                                <button type="button" id="trigger-upload" class="btn btn-primary">
-                                    <i class="icon-upload icon-white"></i> Upload
-                                </button>
-                            </div>
-                            <span class="qq-drop-processing-selector qq-drop-processing">
-                                <span>Processing dropped files...</span>
-                                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-                            </span>
-                            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
-                                <li>
-                                    <div class="qq-progress-bar-container-selector">
-                                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                                    </div>
-                                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
-                                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
-                                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
-                                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
-                                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                                </li>
-                            </ul>
-
-                            <dialog class="qq-alert-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Close</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-confirm-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">No</button>
-                                    <button type="button" class="qq-ok-button-selector">Yes</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-prompt-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <input type="text">
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
-                                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                                </div>
-                            </dialog>
-                        </div>
-                    </script>
-
-                    <style>
-                        #trigger-upload {
-                            color: white;
-                            background-color: #00ABC7;
-                            font-size: 14px;
-                            padding: 7px 20px;
-                            background-image: none;
-                        }
-
-                        #fine-uploader-manual-trigger .qq-upload-button {
-                            margin-right: 15px;
-                        }
-
-                        #fine-uploader-manual-trigger .buttons {
-                            width: 36%;
-                        }
-
-                        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
-                            width: 60%;
-                        }
-                    </style>
-                    <div id="fine-uploader-manual-trigger"></div>
-                    <script src="/js/demo/manual-trigger.js"></script>
-                    <!--end manual trigger demo code-->
-
-                    <div class="view-code">
-                        <button type="button" class="btn-link"><i class="icon-eye-open"></i>View Code</button>
-                        <div class="source-view">
-                            <ul role="tablist" class="code-example">
-                                <li role="tab" aria-controls="no-dependencies-tab-manually-trigger-uploads" tabindex="0" id="no-dependencies-tab-manually-trigger-uploads-control" class="code-tab activeTabTrigger" data-tab="no-dependencies-tab-manually-trigger-uploads">No Dependencies</li>
-                                <li role="tab" aria-controls="jquery-tab-manually-trigger-uploads" tabindex="0" id="jquery-tab-manually-trigger-uploads-control" class="code-tab" data-tab="jquery-tab-manually-trigger-uploads">jQuery</li>
-
-                                <pre role="tabpanel" aria-labelledby="no-dependencies-tab-manually-trigger-uploads-control" id="no-dependencies-tab-manually-trigger-uploads" class="code-window active">
-                                    <code class="example" data-demo="manual-trigger"></code>
-                                </pre>
-                                <pre role="tabpanel" aria-labelledby="jquery-tab-manually-trigger-uploads-control" id="jquery-tab-manually-trigger-uploads" class="code-window">
-                                    <code class="example" data-demo="jquery-manual-trigger"></code>
-                                </pre>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <hr>
-
-                </section>
-
-                <section id="validation" class="demo-section">
-                    <h3>Validation</h3>
-                    <p class="demo-description">There are various options available to you when using Fine Uploader. In this demo, we've used a small subset of these options. To see all available options and their usage, please refer to <a href="http://docs.fineuploader.com">Fine Uploader documentation</a> on the Github repository.</p>
-                    <p>We are implementing the following options in this demo:</p>
-                    <ul>
-                        <li>restriction to <code>jpeg</code>, <code>jpg</code>, and <code>txt</code> files,</li>
-                        <li>restriction to a maximum file size of 50 kB,</li>
-                        <li>limit total number of submitted files to 3.</li>
-                    </ul>
-
-                    <p>This demo uses the <a href="https://github.com/Widen/fine-uploader/blob/master/client/html/templates/default.html">default template</a> bundled with Fine Uploader UI.
-                        For details, see the <a href="http://docs.fineuploader.com/features/styling.html">styling documentation</a>.</p>
-
-                    <p>Note: File bytes are not actually being sent to the server for this demo due to limitations of the GitHub Pages server.</p>
-
-                    <!--start validation demo code-->
-                    <script type="text/template" id="qq-template-validation">
-                        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
-                            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-                            </div>
-                            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                                <span class="qq-upload-drop-area-text-selector"></span>
-                            </div>
-                            <div class="qq-upload-button-selector qq-upload-button">
-                                <div>Upload files</div>
-                            </div>
-                            <span class="qq-drop-processing-selector qq-drop-processing">
-                                <span>Processing dropped files...</span>
-                                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-                            </span>
-                            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
-                                <li>
-                                    <div class="qq-progress-bar-container-selector">
-                                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                                    </div>
-                                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
-                                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
-                                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
-                                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                                </li>
-                            </ul>
-
-                            <dialog class="qq-alert-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Close</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-confirm-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">No</button>
-                                    <button type="button" class="qq-ok-button-selector">Yes</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-prompt-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <input type="text">
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
-                                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                                </div>
-                            </dialog>
-                        </div>
-                    </script>
-                    <div id="fine-uploader-validation"></div>
-                    <script src="/js/demo/validation.js"></script>
-                    <!--end validation demo code-->
-
-                    <div class="view-code">
-                        <button type="button" class="btn-link"><i class="icon-eye-open"></i>View Code</button>
-                        <div class="source-view">
-                            <ul role="tablist" class="code-example">
-                                <li role="tab" aria-controls="no-dependencies-tab-validation" id="no-dependencies-tab-validation-control" tabindex="0" class="code-tab activeTabTrigger" data-tab="no-dependencies-tab-validation">No Dependencies</li>
-                                <li role="tab" aria-controls="jquery-tab-validation" id="jquery-tab-validation-control" tabindex="0" class="code-tab" data-tab="jquery-tab-validation" >jQuery</li>
-
-                                <pre role="tabpanel" aria-labelledby="no-dependencies-tab-validation-control" id="no-dependencies-tab-validation" class="code-window active">
-                                    <code class="example xml" data-demo="validation"></code>
-                                </pre>
-                                 <pre role="tabpanel" aria-labelledby="jquery-tab-validation-control" id="jquery-tab-validation" class="code-window">
-                                    <code class="example" data-demo="jquery-validation"></code>
-                                </pre>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                </section>
-
-                <section id="amazon-demo" class="demo-section">
-                    <h3 class="demo-title">Upload Files Directly to Amazon S3</h3>
-                    <p class="demo-description">Fine Uploader has always supported uploading to your own server.
-                        Now you can remove the complexity and inefficiency of handling uploads on your local server by
-                        delegating to Amazon.  Upload files directly to Amazon's Simple Storage Service from your browser!
-                        Want to upload to S3 without any server-side code at all?  Have a look at <a href="https://fineuploader-s3-client-demo.s3.amazonaws.com/index.html">
-                        our S3 no-server demo</a> instead!</p>
-                    <div style="text-align: left;">
-                        <p>Below is a fully-functional live demo that also includes the <a href="http://docs.fineuploader.com/features/thumbnails.html">native preview/thumbnail generation feature</a>.
-                            Here, you can try out Fine Uploader S3 by sending files to one of our S3 buckets!
-                            Yes, this actually does upload files to an S3 bucket!
-                            You can also download the file after a successful upload (by clicking on the thumbnail).</p>
-                        <p>This example demonstrates:
-                        <ul>
-                            <li>Use of a custom domain for an S3 bucket</li>
-                            <li>Sending an ajax request to your server when the file is in S3</li>
-                            <li>Enabling advanced features, such as
-                                <ul>
-                                    <li><a href="http://docs.fineuploader.com/features/thumbnails.html">Client-side preview generation (newer browsers)</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/thumbnails.html">Server-generated thumbnail display (older browsers)</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/drag-and-drop.html">Drag & drop</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/retry.html">Retry of failed uploads</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/chunking.html">Chunking</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/resume.html">Auto-resume of interrupted uploads</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/delete.html">Deleting an uploaded file</a></li>
-                                    <li><a href="http://docs.fineuploader.com/features/validation.html">Validation rules</a>
-                                        <ul>
-                                            <li>Limit 5 "net" files per session</li>
-                                            <li>Max file size of 15 MB</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        </p>
-                        <p>
-                            The server-side code for this demo was written in PHP. You can easily duplicate this example in your project by following our <a href="http://docs.fineuploader.com/quickstart/02-setting_options-s3.html">Fine Uploader S3 getting started guide</a>.
-                        </p>
-                        <p>Please read the <a href="http://wp.me/p3FpYP-3r" target="_blank">blog post on the Fine Uploader S3 module</a> for more details.</p>
-
-                        <p>Note: If you want to test the auto-resume feature, you must use any browser other than IE9
-                            and older or stock Android and submit a large file 6-15MB.  After at least 5MB have been
-                            uploaded (since each chunk is 5 MiB): close or refresh the page, re-submit the file, and
-                            watch Fine Uploader pick up from where it left off!
-                            </ul></p>
-
-                        <br/>
-                    </div>
-
-                    <!--start s3 demo code-->
-                    <script type="text/template" id="qq-template-s3">
-                        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
-                            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-                            </div>
-                            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                                <span class="qq-upload-drop-area-text-selector"></span>
-                            </div>
-                            <div class="qq-upload-button-selector qq-upload-button">
-                                <div>Upload files</div>
-                            </div>
-                            <span class="qq-drop-processing-selector qq-drop-processing">
-                                <span>Processing dropped files...</span>
-                                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-                            </span>
-                            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
-                                <li>
-                                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                                    <div class="qq-progress-bar-container-selector qq-progress-bar-container">
-                                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                                    </div>
-                                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                                    <div class="qq-thumbnail-wrapper">
-                                        <a class="preview-link" target="_blank">
-                                            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
-                                        </a>
-                                    </div>
-                                    <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
-                                    <button type="button" class="qq-upload-retry-selector qq-upload-retry">
-                                        <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
-                                        Retry
-                                    </button>
-
-                                    <div class="qq-file-info">
-                                        <div class="qq-file-name">
-                                            <span class="qq-upload-file-selector qq-upload-file"></span>
-                                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
-                                        </div>
-                                        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                                        <span class="qq-upload-size-selector qq-upload-size"></span>
-                                        <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
-                                            <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
-                                        </button>
-                                        <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
-                                            <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
-                                        </button>
-                                        <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
-                                            <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <dialog class="qq-alert-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Close</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-confirm-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">No</button>
-                                    <button type="button" class="qq-ok-button-selector">Yes</button>
-                                </div>
-                            </dialog>
-
-                            <dialog class="qq-prompt-dialog-selector">
-                                <div class="qq-dialog-message-selector"></div>
-                                <input type="text">
-                                <div class="qq-dialog-buttons">
-                                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
-                                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                                </div>
-                            </dialog>
-                        </div>
-                    </script>
-
-                    <style>
-                        #fine-uploader-s3 .preview-link {
-                            display: block;
-                            height: 100%;
-                            width: 100%;
-                        }
-                    </style>
-
-                    <div id="fine-uploader-s3"></div>
-                    <script src="/js/demo/s3-demo.js"></script>
-                    <!--end s3 demo code-->
-
-                    <div class="view-code">
-                        <button type="button" class="btn-link"><i class="icon-eye-open"></i>View Code</button>
-                        <div class="source-view">
-                            <ul role="tablist" class="code-example">
-                                <li role="tab" tabindex="0" aria-controls="nodep-tab-amazon" id="nodep-tab-amazon-control" class="code-tab activeTabTrigger" data-tab="nodep-tab-amazon">No Dependencies</li>
-                                <li role="tab" tabindex="0" aria-controls="jquery-tab-amazon" id="jquery-tab-amazon-control" class="code-tab" data-tab="jquery-tab-amazon">jQuery</li>
-
-                                <pre role="tabpanel" aria-labelledby="nodep-tab-amazon-control" id="nodep-tab-amazon" class="code-window active">
-                                    <code class="example" data-demo="s3-demo"></code>
-                                </pre>
-                                <pre role="tabpanel" aria-labelledby="jquery-tab-amazon-control" id="jquery-tab-amazon" class="code-window">
-                                    <code class="example" data-demo="jquery-s3-demo"></code>
-                                </pre>
-                            </ul>
-                        </div>
-                    </div>
-
-                </section>
-            </div>
-        </div>
-    </div>
-
-        <div id="footer"></div>
-
-    <script>
-        $.get('./navbar.html', function(data) {
-            $('#navbar').html(data);
-            $('#navbar').find('li.dropdown').addClass('active')
-                    .find('li').eq(0).addClass('active');
-
-            $('.dropdown-toggle').dropdown();
-
-            $(document).ready(function() {
-                /* Inspiration from:
-                 -----------------
-                 http://www.mybloggerlab.com/2012/03/make-your-old-site-navigation-bar.html */
-                var offset, aboveHeight;
-                var $menu = $('#menu');
-                var $jumbotron = $('#jumbotron');
-                var $demoList = $('#demoList');
-
-                function offsetSubMenu() {
-                    if ($menu.css('position') == 'fixed') {
-                        offset = $menu.outerHeight();
-                        aboveHeight = $jumbotron.outerHeight() - 10;
-                    } else {
-                        offset = 0;
-                        aboveHeight = $menu.outerHeight() + $jumbotron.outerHeight();
-                    }
-
-                    if ($(window).scrollTop() > aboveHeight){
-                        $demoList.css({"position": "fixed", "top": offset + "px"});
-                    } else {
-                        $demoList.css({"position": "relative", "top": "0"});
-                    }
-                }
-
-                offsetSubMenu();
-
-                $(window).resize(function() {
-                    offsetSubMenu();
-                });
-
-                $(window).scroll(function() {
-                    offsetSubMenu();
-                });
-            });
-        });
-
-        $.get('./header.html', function(data) {
-            $('#header').html(data);
-        });
-        $.get('./footer.html', function(data) {
-            $('#footer').html(data);
-        });
-    </script>
-
-    <script>
-        $('pre code.example').each(function() {
-            var $demoCode = $(this);
-            $.get('/js/demo/display/' + $demoCode.data('demo') + ".partial", function(data) {
-                $demoCode.text(data);
-                if (!qq.ie8()) {
-                    hljs.highlightBlock($demoCode[0]);
-                }
-            });
-        });
-    </script>
+   <div id="uploader" class="wu-example">
+    <div id="thelist" class="uploader-list"></div>
+    <div class="btns">
+    <div id="picker">选择文件</div>
+    <button id="ctlBtn" class="btn btn-default">开始上传</button>
+</div>
+</div>
 </body>
+<script type="text/javascript">
+// 文件上传
+        var $ = jQuery,
+        $list = $('#thelist'),
+        $btn = $('#ctlBtn'),
+        state = 'pending',
+        uploader = WebUploader.create({
+
+            // 不压缩image
+            resize: false,
+
+            // swf文件路径
+            swf: '/content/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '/Webupload/Process',   //（这是在后台写的接收前台传送的文件方法）
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#picker',
+
+
+        });
+
+        // 当有文件添加进来的时候
+        uploader.on('fileQueued', function (file) {
+        $list.append(
+            '<div id="' + file.id + '" class="item">' +
+            '<h4 class="info">' + file.name + '</h4>' +
+            '<p class="state">等待上传...</p>' +'</div>'
+            );
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+            $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress progress-striped active">' +
+                '<div class="progress-bar" role="progressbar" style="width: 0%">' +'</div>' +'</div>').appendTo($li).find('.progress-bar');
+            }
+
+            $li.find('p.state').text('上传中');
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        uploader.on('uploadSuccess', function (file) {
+            $('#' + file.id).find('p.state').text('已上传');
+        });
+
+        uploader.on('uploadError', function (file) {
+            $('#' + file.id).find('p.state').text('上传出错');
+        });
+
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').fadeOut();
+        });
+
+        uploader.on('all', function (type) {
+            if (type === 'startUpload') {
+                state = 'uploading';
+            } else if (type === 'stopUpload') {
+                state = 'paused';
+            } else if (type === 'uploadFinished') {
+                state = 'done';
+            }
+
+            if (state === 'uploading') {
+                $btn.text('暂停上传');
+            } else {
+                $btn.text('开始上传');
+            }
+            });
+
+        $btn.on('click', function () {
+            if (state === 'uploading') {
+                uploader.stop();
+            } else {
+                uploader.upload();
+            }
+        });
+
+
+</script>
 </html>

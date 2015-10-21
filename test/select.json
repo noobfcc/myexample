@@ -1,0 +1,12 @@
+{
+"status": 1,
+"data": [
+	{"id":1,"value":"生的"},
+	{"id":2,"value":"熟的"},
+	{"id":3,"value":"烂的"},
+	{"id":4,"value":"烂的"},
+	{"id":5,"value":"坏的"}
+],
+  "info": "success"
+}
+ 

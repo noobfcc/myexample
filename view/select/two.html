@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../../static/mod/jquery-2.0.3/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+   <select name="" id="sel">
+       <option value="1">苹果</option>
+       <option value="2">橘子</option>
+       <option value="3">梨子</option>
+   </select>
+   <select name="" id="sel1">
+   </select>
+    <select name="" id="sel2">
+   </select>
+   <script>
+   var  selval;
+   var  selval1;
+  /* sel2(val2);*/
+   $("#sel").on("change",function(){
+        sel(selval,"#sel","#sel1",'../../test/select.json?selval=');      
+   })
+    $("#sel1").on("change",function(){
+        sel(selval1,"#sel1","#sel2",'../../test/select.json?selval1=');      
+   })
+   function sel(selval,dom1,dom2,url){
+        $(dom2).children().remove();
+        var selval=$(dom1).val();
+        console.log(selval);
+        $.get(url+selval,function(data){
+            if (data.status == 1) {
+                var data=data.data;
+                for(var i=0; i<data.length; i++){
+                   $(dom2).append("<option value="+data[i].id+">"+data[i].value+"</option>" )
+                }
+                console.log(data);
+           }
+        });
+   }
+   </script>
+</body>
+</html>
